@@ -5,11 +5,11 @@
   --bg-input: rgba(255,255,255,0.05); --bg-subtle: rgba(255,255,255,0.05); --bg-overlay: rgba(0,0,0,0.8);
   --text-1: #ffffff; --text-2: #a1a1aa; --text-3: #71717a; --text-4: #52525b;
   --bdr: rgba(255,255,255,0.1); --bdr-lt: rgba(255,255,255,0.05);
-  --nav-bg: rgba(9,9,11,0.85); --nav-sc: rgba(9,9,11,0.95); --brand-sub: #d4d4d8;
+  --nav-bg: rgba(9,9,11,0.4); --nav-sc: rgba(9,9,11,0.65); --brand-sub: #d4d4d8;
   --red-bg: rgba(220,38,38,0.1); --red-bdr: rgba(220,38,38,0.3); --red-glow: rgba(220,38,38,0.15);
   --shadow: none; --hero-mix: overlay; --sel-bg: rgba(220,38,38,0.3); --sel-fg: #fecaca;
   --scr-track: #18181b; --scr-thumb: #3f3f46;
-  --btn-ghost: rgba(255,255,255,0.05); --btn-ghost-txt: #ffffff;
+  --btn-ghost: rgba(255, 255, 255, 0.85); --btn-ghost-txt: #27272a;
   --btn-ghost-hover: #dc2626; --btn-ghost-hover-txt: #ffffff;
   --year-bg: rgba(0,0,0,0.6); --select-bg: #27272a; --select-text: #ffffff;
 }
@@ -18,11 +18,11 @@ html.light {
   --bg-input: rgba(0,0,0,0.04); --bg-subtle: rgba(0,0,0,0.05); --bg-overlay: rgba(0,0,0,0.5);
   --text-1: #27272a; --text-2: #52525b; --text-3: #71717a; --text-4: #a1a1aa;
   --bdr: rgba(0,0,0,0.08); --bdr-lt: rgba(0,0,0,0.04);
-  --nav-bg: rgba(245,244,242,0.92); --nav-sc: rgba(245,244,242,0.97); --brand-sub: #3f3f46;
+  --nav-bg: rgba(245,244,242,0.4); --nav-sc: rgba(245,244,242,0.65); --brand-sub: #3f3f46;
   --red-bg: rgba(220,38,38,0.08); --red-bdr: rgba(220,38,38,0.25); --red-glow: rgba(220,38,38,0.1);
   --shadow: 0 4px 24px rgba(0,0,0,0.05); --hero-mix: multiply; --sel-bg: rgba(220,38,38,0.15); --sel-fg: #991b1b;
   --scr-track: #ebeae8; --scr-thumb: #d4d4d8;
-  --btn-ghost: rgba(0,0,0,0.05); --btn-ghost-txt: #27272a;
+  --btn-ghost: rgba(255, 255, 255, 0.85); --btn-ghost-txt: #27272a;
   --btn-ghost-hover: #dc2626; --btn-ghost-hover-txt: #ffffff;
   --year-bg: rgba(0,0,0,0.55); --select-bg: #f5f4f2; --select-text: #27272a;
 }
@@ -37,7 +37,9 @@ select { color-scheme: dark; }
 html.light select { color-scheme: light; }
 select option { background: var(--select-bg); color: var(--select-text); }
 
-.t-bg{background:var(--bg)} .t-bg-alt{background:var(--bg-alt)}
+.t-bg{background:transparent}
+.t-bg-alt{background:rgba(24,24,27,0.45);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
+html.light .t-bg-alt{background:rgba(235,234,232,0.5);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
 .t-card{background:linear-gradient(to bottom right,var(--bg-card),var(--bg-card2));border:1px solid var(--bdr);box-shadow:var(--shadow)}
 .t-card:hover{border-color:var(--red-bdr)}
 .t-input{background:var(--bg-input);border:1px solid var(--bdr);color:var(--text-1)}
@@ -80,6 +82,10 @@ select option { background: var(--select-bg); color: var(--select-text); }
   .wa-float{width:60px;height:60px;bottom:calc(24px + env(safe-area-inset-bottom, 0px));right:calc(24px + env(safe-area-inset-right, 0px))}
   .wa-float svg{width:32px;height:32px}
 }
+@media(min-width:640px){
+  .wa-float{width:60px;height:60px;bottom:calc(24px + env(safe-area-inset-bottom, 0px));right:calc(24px + env(safe-area-inset-right, 0px))}
+  .wa-float svg{width:32px;height:32px}
+}
 @keyframes waPulse{
   0%{box-shadow:0 4px 12px rgba(0,0,0,0.3),0 0 0 0 rgba(37,211,102,0.5)}
   70%{box-shadow:0 4px 12px rgba(0,0,0,0.3),0 0 0 14px rgba(37,211,102,0)}
@@ -87,8 +93,8 @@ select option { background: var(--select-bg); color: var(--select-text); }
 }
 .wa-float{animation:waPulse 2.5s ease-in-out infinite}
 
-.t-hero-grad{background:linear-gradient(to top,var(--bg),var(--bg) 15%,transparent 65%)}
-.t-hero-side{background:linear-gradient(to right,var(--bg) 5%,transparent 35%,transparent 65%,var(--bg) 5%)}
+.t-hero-grad{background:transparent}
+.t-hero-side{background:transparent}
 
 *,*::before,*::after{box-sizing:border-box}
 img{max-width:100%;height:auto}
@@ -122,7 +128,7 @@ html.light .theme-icon-moon{display:block}
 .nav-bar{
   position:fixed;top:0;left:0;right:0;z-index:50;
   height:64px;display:flex;align-items:center;
-  background:var(--nav-bg);backdrop-filter:blur(12px);
+  background:var(--nav-bg);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
 }
 @media(min-width:640px){.nav-bar{height:80px}}
 .nav-inner{
@@ -193,3 +199,41 @@ html.light .t-glass {
   border: 1px solid rgba(0, 0, 0, 0.1);
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.1);
 }
+
+.hero-bg-img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  opacity: 1;
+  filter: brightness(75%) contrast(115%);
+  transition: opacity 0.5s ease, filter 0.5s ease;
+}
+html.light .hero-bg-img {
+  opacity: 1;
+  filter: brightness(75%) contrast(115%);
+}
+
+/* Force solid background on Hero to hide global canvas dots in the Hero area */
+#home {
+  background: var(--bg);
+}
+
+/* Remove text glow fog in light theme to make showroom image perfectly sharp and text crisp */
+html.light .brand-glow {
+  text-shadow: none;
+}
+
+/* Custom translucent card for Hero layout with wider breathing margins and custom backdrop blur */
+.hero-glass-card {
+  background: rgba(255, 255, 255, 0.01);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.06);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.5);
+}
+html.light .hero-glass-card {
+  background: rgba(255, 255, 255, 0.22);
+  border: 1px solid rgba(0, 0, 0, 0.05);
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.05);
+}
+

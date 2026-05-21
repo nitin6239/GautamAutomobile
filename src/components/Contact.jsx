@@ -1,6 +1,7 @@
 import React from 'react';
 import { motion } from 'framer-motion';
 
+
 const Contact = ({ showToast }) => {
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -38,23 +39,96 @@ const Contact = ({ showToast }) => {
         <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 sm:gap-16">
           <motion.div initial={{ opacity: 0, x: -30 }} whileInView={{ opacity: 1, x: 0 }} viewport={{ once: true }} transition={{ duration: 0.6 }}>
             <div className="space-y-6 sm:space-y-8 mb-8 sm:mb-10">
-              <div className="flex items-start gap-3 sm:gap-4"><div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl t-red flex items-center justify-center flex-shrink-0"><iconify-icon icon="lucide:map-pin" width="20" className="text-red-500"></iconify-icon></div><div><h4 className="text-sm font-medium mb-1">Showroom Address</h4><p className="t2 font-light text-xs sm:text-sm">Gautam Automobile, Jind, Rohtak Road, Near HDB Bank</p></div></div>
-              <div className="flex items-start gap-3 sm:gap-4"><div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl t-red flex items-center justify-center flex-shrink-0"><iconify-icon icon="lucide:phone" width="20" className="text-red-500"></iconify-icon></div><div><h4 className="text-sm font-medium mb-1">Phone Number 1</h4><a href="tel:+919354719192" className="t2 hover:text-red-500 font-light text-xs sm:text-sm transition-colors">+91 93547 19192</a></div></div>
-              <div className="flex items-start gap-3 sm:gap-4"><div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl t-red flex items-center justify-center flex-shrink-0"><iconify-icon icon="lucide:phone" width="20" className="text-red-500"></iconify-icon></div><div><h4 className="text-sm font-medium mb-1">Phone Number 2</h4><a href="tel:+918510053232" className="t2 hover:text-red-500 font-light text-xs sm:text-sm transition-colors">+91 85100 53232</a></div></div>
-              <div className="flex items-start gap-3 sm:gap-4"><div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl t-red flex items-center justify-center flex-shrink-0"><iconify-icon icon="lucide:mail" width="20" className="text-red-500"></iconify-icon></div><div><h4 className="text-sm font-medium mb-1">Email Address</h4><a href="mailto:automobilegautam@gmail.com" className="t2 hover:text-red-500 font-light text-xs sm:text-sm transition-colors">automobilegautam@gmail.com</a></div></div>
-              <div className="flex items-start gap-3 sm:gap-4"><div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl t-red flex items-center justify-center flex-shrink-0"><iconify-icon icon="lucide:clock" width="20" className="text-red-500"></iconify-icon></div><div><h4 className="text-sm font-medium mb-1">Working Hours</h4><p className="t2 font-light text-xs sm:text-sm">Mon - Sat: 9:00 AM - 8:00 PM</p><p className="t2 font-light text-xs sm:text-sm">Sunday: 9:00 AM - 8:00 PM</p></div></div>
+              {/* Showroom Address */}
+              <div className="flex items-start gap-3 sm:gap-4">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-red-500/10 dark:bg-red-500/20 border border-red-500/20 dark:border-red-500/30 flex items-center justify-center flex-shrink-0 shadow-sm">
+                  <iconify-icon icon="lucide:map-pin" width="20" className="text-red-600 dark:text-red-400"></iconify-icon>
+                </div>
+                <div>
+                  <h4 className="text-sm font-medium mb-1">Showroom Address</h4>
+                  <p className="t2 font-light text-xs sm:text-sm">Gautam Automobile, Jind, Rohtak Road, Near HDB Bank</p>
+                  <a 
+                    href="https://maps.app.goo.gl/HH77DYgKcZJjGkon7" 
+                    target="_blank" 
+                    rel="noreferrer" 
+                    className="inline-flex items-center gap-1 text-[11px] sm:text-xs text-red-500 hover:text-red-600 font-medium mt-1.5 transition-colors group"
+                  >
+                    <span>Get Directions on Google Maps</span>
+                    <iconify-icon icon="lucide:arrow-up-right" width="14" className="transform group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform"></iconify-icon>
+                  </a>
+                </div>
+              </div>
+              
+              {/* Phone Number 1 */}
+              <div className="flex items-start gap-3 sm:gap-4">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-red-500/10 dark:bg-red-500/20 border border-red-500/20 dark:border-red-500/30 flex items-center justify-center flex-shrink-0 shadow-sm">
+                  <iconify-icon icon="lucide:phone" width="20" className="text-red-600 dark:text-red-400"></iconify-icon>
+                </div>
+                <div>
+                  <h4 className="text-sm font-medium mb-1">Phone Number 1</h4>
+                  <a href="tel:+919354719192" className="t2 hover:text-red-500 font-light text-xs sm:text-sm transition-colors">+91 93547 19192</a>
+                </div>
+              </div>
+              
+              {/* Phone Number 2 */}
+              <div className="flex items-start gap-3 sm:gap-4">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-red-500/10 dark:bg-red-500/20 border border-red-500/20 dark:border-red-500/30 flex items-center justify-center flex-shrink-0 shadow-sm">
+                  <iconify-icon icon="lucide:phone" width="20" className="text-red-600 dark:text-red-400"></iconify-icon>
+                </div>
+                <div>
+                  <h4 className="text-sm font-medium mb-1">Phone Number 2</h4>
+                  <a href="tel:+918510053232" className="t2 hover:text-red-500 font-light text-xs sm:text-sm transition-colors">+91 85100 53232</a>
+                </div>
+              </div>
+              
+              {/* Email Address */}
+              <div className="flex items-start gap-3 sm:gap-4">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-red-500/10 dark:bg-red-500/20 border border-red-500/20 dark:border-red-500/30 flex items-center justify-center flex-shrink-0 shadow-sm">
+                  <iconify-icon icon="lucide:mail" width="20" className="text-red-600 dark:text-red-400"></iconify-icon>
+                </div>
+                <div>
+                  <h4 className="text-sm font-medium mb-1">Email Address</h4>
+                  <a href="mailto:automobilegautam@gmail.com" className="t2 hover:text-red-500 font-light text-xs sm:text-sm transition-colors">automobilegautam@gmail.com</a>
+                </div>
+              </div>
+              
+              {/* Working Hours */}
+              <div className="flex items-start gap-3 sm:gap-4">
+                <div className="w-10 h-10 sm:w-12 sm:h-12 rounded-xl bg-red-500/10 dark:bg-red-500/20 border border-red-500/20 dark:border-red-500/30 flex items-center justify-center flex-shrink-0 shadow-sm">
+                  <iconify-icon icon="lucide:clock" width="20" className="text-red-600 dark:text-red-400"></iconify-icon>
+                </div>
+                <div>
+                  <h4 className="text-sm font-medium mb-1">Working Hours</h4>
+                  <p className="t2 font-light text-xs sm:text-sm">Mon - Sat: 9:00 AM - 8:00 PM</p>
+                  <p className="t2 font-light text-xs sm:text-sm">Sunday: 9:00 AM - 8:00 PM</p>
+                </div>
+              </div>
             </div>
             <div>
               <h4 className="text-sm font-medium mb-3 sm:mb-4">Follow Us</h4>
-              <a href="https://www.instagram.com/gautam_automobile_jind?igsh=MWtpeDM2eGZ5Y3V1Zg==" target="_blank" rel="noreferrer" className="inline-flex items-center gap-3 px-5 py-3 rounded-xl t-card hover:border-pink-500/50 transition-all group">
-                <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 flex items-center justify-center">
-                  <iconify-icon icon="lucide:instagram" width="20" className="text-white"></iconify-icon>
-                </div>
-                <div>
-                  <div className="text-sm font-medium group-hover:text-pink-500 transition-colors">@gautam_automobile_jind</div>
-                  <div className="text-[10px] t3 font-light">Follow us on Instagram</div>
-                </div>
-              </a>
+              <div className="flex flex-col sm:flex-row gap-4">
+                {/* Instagram Card */}
+                <a href="https://www.instagram.com/gautam_automobile_jind?igsh=MWtpeDM2eGZ5Y3V1Zg==" target="_blank" rel="noreferrer" className="inline-flex items-center gap-3 px-5 py-3 rounded-xl t-card hover:border-pink-500/50 transition-all group flex-1">
+                  <div className="w-10 h-10 rounded-lg bg-gradient-to-br from-purple-600 via-pink-500 to-orange-400 flex items-center justify-center">
+                    <iconify-icon icon="lucide:instagram" width="20" className="text-white"></iconify-icon>
+                  </div>
+                  <div>
+                    <div className="text-sm font-medium group-hover:text-pink-500 transition-colors">@gautam_automobile_jind</div>
+                    <div className="text-[10px] t3 font-light">Follow us on Instagram</div>
+                  </div>
+                </a>
+                
+                {/* Facebook Card */}
+                <a href="https://www.facebook.com/share/18e2Zsvaza/" target="_blank" rel="noreferrer" className="inline-flex items-center gap-3 px-5 py-3 rounded-xl t-card hover:border-blue-500/50 transition-all group flex-1">
+                  <div className="w-10 h-10 rounded-lg bg-[#1877F2] flex items-center justify-center">
+                    <iconify-icon icon="lucide:facebook" width="20" className="text-white"></iconify-icon>
+                  </div>
+                  <div>
+                    <div className="text-sm font-medium group-hover:text-blue-500 transition-colors">Gautam Automobile</div>
+                    <div className="text-[10px] t3 font-light">Follow us on Facebook</div>
+                  </div>
+                </a>
+              </div>
             </div>
           </motion.div>
           
@@ -79,7 +153,10 @@ const Contact = ({ showToast }) => {
                 </select>
               </div>
               <div><label className="text-[10px] sm:text-[11px] uppercase tracking-widest t3 font-medium block mb-2">Message</label><textarea name="message" rows="4" placeholder="Tell us what you're looking for..." className="w-full t-input rounded-lg px-3 sm:px-4 py-2.5 sm:py-3 text-xs sm:text-sm resize-none"></textarea></div>
-              <button type="submit" className="w-full bg-red-600 hover:bg-red-500 text-white text-xs sm:text-sm font-semibold py-3 sm:py-3.5 rounded-lg transition-colors flex items-center justify-center gap-2">
+              <button 
+                type="submit" 
+                className="w-full bg-red-600 hover:bg-red-500 text-white text-xs sm:text-sm font-semibold py-3 sm:py-3.5 rounded-lg transition-all flex items-center justify-center gap-2 uppercase tracking-wider shadow-md hover:shadow-lg hover:scale-[1.01] active:scale-[0.99]"
+              >
                 <iconify-icon icon="lucide:send" width="16"></iconify-icon> Send Enquiry
               </button>
             </form>

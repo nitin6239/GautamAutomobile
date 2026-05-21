@@ -1,35 +1,95 @@
+// src/data.js
 export const CAR_DATA = [
     {
+        id: 1,
+        slug: 'swift-vxi',
         name: 'SWIFT VXI',
         price: '₹4,50,000',
+        originalPrice: '₹4,85,000',
         short: '₹4.5L',
-        year: '2020 DECEMBER',
+        year: '2020',
         km: '64,000 km',
-        fuel: 'PETROL',
+        fuel: 'Petrol',
         trans: 'Manual',
-        owner: '1st Owner',
-        img: 'Swift.jpeg'
+        owner: '1st',
+        engine: '1197cc',
+        spareKey: 'Yes',
+        regNum: 'HR31**8510',
+        regYear: 'Dec 2020',
+        makeYear: 'Oct 2020',
+        insurance: 'Jan 2027',
+        insuranceType: 'Comprehensive',
+        rtoCode: 'HR-31',
+        location: 'Near HDB Bank, Jind',
+        phone: '9354719192',
+        img: 'cars/Swift.jpeg',
+        images: [
+            'cars/Swift.jpeg',
+            'https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=800&q=80'
+        ],
+        interiorImages: [
+            'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800&q=80',
+            'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=800&q=80'
+        ]
     },
     {
-        name: 'NISSAN MAGNITE MT XV EXE',
+        id: 2,
+        slug: 'nissan-magnite-xv',
+        name: 'NISSAN MAGNITE XV',
         price: '₹4,15,000',
+        originalPrice: '₹4,45,000',
         short: '₹4.15L',
-        year: '2022/23',
+        year: '2022',
         km: '52,000 km',
         fuel: 'Petrol',
         trans: 'Manual',
-        owner: '1st Owner',
-        img: 'Magnite.jpeg'
+        owner: '1st',
+        engine: '999cc',
+        spareKey: 'Yes',
+        regNum: 'HR20**3232',
+        regYear: 'Jan 2022',
+        makeYear: 'Nov 2021',
+        insurance: 'Jan 2027',
+        insuranceType: '3rd Party',
+        rtoCode: 'HR-20',
+        location: 'Rohtak Road, Jind',
+        phone: '9354719192',
+        img: 'cars/Magnite.jpeg',
+        images: [
+            'cars/Magnite.jpeg',
+            'https://images.unsplash.com/photo-1619682817481-e994891cd1f5?w=800&q=80'
+        ],
+        interiorImages: [
+            'https://images.unsplash.com/photo-1550355291-bbee04a92027?w=800&q=80'
+        ]
     },
     {
+        id: 3,
+        slug: 'baleno-delta',
         name: 'BALENO DELTA',
         price: '₹4,60,000',
+        originalPrice: '₹4,90,000',
         short: '₹4.60L',
         year: '2019',
         km: '72,000 km',
         fuel: 'Diesel',
         trans: 'Manual',
-        owner: '1st Owner',
-        img: 'Baleno.jpeg'
+        owner: '1st',
+        engine: '1248cc',
+        spareKey: 'No',
+        regNum: 'HR31**1919',
+        regYear: 'Jul 2019',
+        makeYear: 'May 2019',
+        insurance: 'Jul 2026',
+        insuranceType: 'Comprehensive',
+        rtoCode: 'HR-31',
+        location: 'Near HDB Bank, Jind',
+        phone: '9354719192',
+        img: 'cars/Baleno.jpeg',
+        images: [
+            'cars/Baleno.jpeg',
+            'https://images.unsplash.com/photo-1542362567-b07e54358753?w=800&q=80'
+        ],
+        interiorImages: []
     }
 ];

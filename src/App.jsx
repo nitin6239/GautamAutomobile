@@ -1,4 +1,5 @@
 import React, { useState, useEffect } from 'react';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 import Navbar from './components/Navbar';
 import Hero from './components/Hero';
@@ -8,12 +9,21 @@ import Services from './components/Services';
 import WhyChooseUs from './components/WhyChooseUs';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-import CarModal from './components/CarModal';
+// import CarModal from './components/CarModal'; // We don't need this on the home page anymore
+import CrazyBackground from './components/CrazyBackground';
+import PremiumCarDetail from './components/PremiumCarDetail';
 import { CAR_DATA } from './data';
 
-function App() {
+// --- Home Page Component ---
+// Removed setSelectedCar prop since we aren't using the modal here anymore
+function HomePage() { 
   const [theme, setTheme] = useState(localStorage.getItem('gautam-theme') || 'dark');
-  const [selectedCar, setSelectedCar] = useState(null);
+  const [toastMsg, setToastMsg] = useState('');
+  
+  const showToast = (msg) => {
+    setToastMsg(msg);
+    setTimeout(() => setToastMsg(''), 4000);
+  };
 
   useEffect(() => {
     if (theme === 'light') {
@@ -34,31 +44,23 @@ function App() {
   const [themeWipe, setThemeWipe] = useState(null);
 
   const toggleTheme = () => {
-    if (themeWipe) return; // Prevent spamming
+    if (themeWipe) return;
     const nextTheme = theme === 'light' ? 'dark' : 'light';
     setThemeWipe(nextTheme);
     
-    // Swap the actual theme when the massive triangle covers the screen
     setTimeout(() => {
       setTheme(nextTheme);
     }, 1200);
     
-    // Remove the wipe element after animation finishes
     setTimeout(() => {
       setThemeWipe(null);
     }, 1600);
   };
 
-  const [toastMsg, setToastMsg] = useState('');
-  
-  const showToast = (msg) => {
-    setToastMsg(msg);
-    setTimeout(() => setToastMsg(''), 4000);
-  };
-
   return (
     <>
-      {/* Scroll Progress Bar */}
+      <CrazyBackground />
+
       <motion.div
         className="fixed top-0 left-0 right-0 h-1 bg-red-600 origin-left"
         style={{ scaleX, zIndex: 100000 }}
@@ -82,7 +84,6 @@ function App() {
             className={`fixed inset-0 z-[99999] pointer-events-none flex items-center ${themeWipe === 'dark' ? 'justify-end' : 'justify-start'}`}
             style={{ width: '150vw' }}
           >
-            {/* The Triangle Torch Beam Shape */}
             <div 
               className="absolute inset-0"
               style={{
@@ -93,7 +94,6 @@ function App() {
               }}
             />
 
-            {/* The Speeding Car */}
             <div className={`absolute ${themeWipe === 'dark' ? 'right-0 translate-x-[95%]' : 'left-0 -translate-x-[95%]'} flex items-center`}>
               <iconify-icon 
                 icon="ph:car-profile-fill" 
@@ -120,8 +120,11 @@ function App() {
       )}
 
       <Navbar toggleTheme={toggleTheme} theme={theme} />
-      <Hero />
-      <Inventory cars={CAR_DATA} onCarSelect={setSelectedCar} />
+      <Hero theme={theme} />
+      
+      {/* Pass CAR_DATA to Inventory */}
+      <Inventory cars={CAR_DATA} /> 
+      
       <About />
       <Services />
       <WhyChooseUs />
@@ -133,10 +136,21 @@ function App() {
 
       <Footer />
 
-      {selectedCar && (
-        <CarModal car={selectedCar} onClose={() => setSelectedCar(null)} />
-      )}
+      {/* CarModal removed from here as we now use a dedicated route for details */}
     </>
+  );
+}
+
+// --- Main App Component ---
+function App() {
+  return (
+    // ADD basename="/GautamAutomobile/" HERE
+    <Router basename="/GautamAutomobile/"> 
+      <Routes>
+        <Route path="/" element={<HomePage />} />
+        <Route path="/car/:id" element={<PremiumCarDetail />} />
+      </Routes>
+    </Router>
   );
 }
 

@@ -42,8 +42,19 @@ const Footer = () => {
               <li className="flex items-center gap-2 t2 text-xs sm:text-sm font-light"><iconify-icon icon="lucide:phone" width="14" className="text-red-500 flex-shrink-0"></iconify-icon>+91 93547 19192</li>
               <li className="flex items-center gap-2 t2 text-xs sm:text-sm font-light"><iconify-icon icon="lucide:phone" width="14" className="text-red-500 flex-shrink-0"></iconify-icon>+91 85100 53232</li>
               <li className="flex items-center gap-2 t2 text-xs sm:text-sm font-light"><iconify-icon icon="lucide:mail" width="14" className="text-red-500 flex-shrink-0"></iconify-icon>automobilegautam@gmail.com</li>
-              <li className="flex items-start gap-2 t2 text-xs sm:text-sm font-light"><iconify-icon icon="lucide:map-pin" width="14" className="text-red-500 mt-0.5 flex-shrink-0"></iconify-icon>Jind, Rohtak Road, Near HDB Bank</li>
+              <li className="flex items-start gap-2 t2 text-xs sm:text-sm font-light">
+                <iconify-icon icon="lucide:map-pin" width="14" className="text-red-500 mt-0.5 flex-shrink-0"></iconify-icon>
+                <a 
+                  href="https://maps.app.goo.gl/HH77DYgKcZJjGkon7" 
+                  target="_blank" 
+                  rel="noreferrer" 
+                  className="hover:text-red-500 transition-colors"
+                >
+                  Jind, Rohtak Road, Near HDB Bank
+                </a>
+              </li>
               <li><a href="https://www.instagram.com/gautam_automobile_jind?igsh=MWtpeDM2eGZ5Y3V1Zg==" target="_blank" rel="noreferrer" className="flex items-center gap-2 t2 hover:text-pink-500 text-xs sm:text-sm font-light transition-colors"><iconify-icon icon="lucide:instagram" width="14" className="text-pink-500 flex-shrink-0"></iconify-icon>@gautam_automobile_jind</a></li>
+              <li><a href="https://www.facebook.com/share/18e2Zsvaza/" target="_blank" rel="noreferrer" className="flex items-center gap-2 t2 hover:text-blue-500 text-xs sm:text-sm font-light transition-colors"><iconify-icon icon="lucide:facebook" width="14" className="text-blue-500 flex-shrink-0"></iconify-icon>Gautam Automobile</a></li>
             </ul>
           </div>
         </div>
