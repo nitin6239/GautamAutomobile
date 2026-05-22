@@ -7,7 +7,7 @@ const servicesData = [
   { icon: 'repeat', title: 'Car Exchange', desc: 'Trade in your old vehicle for a better one. Fair valuation, minimum paperwork.', link: '#contact', linkText: 'Get Valuation' },
   { icon: 'file-check', title: 'RC Transfer & RTO', desc: 'Complete RTO documentation, RC transfer, insurance handled by our team.', link: '#contact', linkText: 'Learn More' },
   { icon: 'shield-check', title: 'Warranty & Assurance', desc: 'Select vehicles with extended warranty options.', link: '#contact', linkText: 'Check Coverage' },
-  { icon: 'wrench', title: 'Service & Detailing', desc: 'Complete car service, detailing, and polishing before delivery.', link: '#contact', linkText: 'Book Service' }
+  { icon: 'shield-check', title: 'Insurance Renewal', desc: 'Hassle-free insurance renewal for new & old cars with best quotes from top providers.', link: '#contact', linkText: 'Get Quote' }
 ];
 
 const Services = () => {
