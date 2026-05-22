@@ -2,69 +2,6 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 
-// Image carousel inside each car card
-const CarImageCarousel = ({ images, name, BASE }) => {
-  const [active, setActive] = useState(0);
-
-  const src = (img) =>
-    img.startsWith('http') ? img : `${BASE}${img}`;
-
-  return (
-    <div className="relative overflow-hidden aspect-[4/3] group/carousel">
-      {/* Images */}
-      {images.map((img, i) => (
-        <motion.img
-          key={i}
-          src={src(img)}
-          alt={`${name} view ${i + 1}`}
-          className="absolute inset-0 w-full h-full object-cover"
-          initial={{ opacity: 0 }}
-          animate={{ opacity: i === active ? 1 : 0 }}
-          transition={{ duration: 0.5, ease: 'easeInOut' }}
-        />
-      ))}
-
-      {/* Dot indicators */}
-      {images.length > 1 && (
-        <div className="absolute bottom-3 left-1/2 -translate-x-1/2 flex gap-1.5 z-10 opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300">
-          {images.map((_, i) => (
-            <button
-              key={i}
-              onClick={(e) => { e.stopPropagation(); setActive(i); }}
-              className={`w-1.5 h-1.5 rounded-full transition-all duration-300 ${i === active ? 'bg-white scale-125' : 'bg-white/50'}`}
-            />
-          ))}
-        </div>
-      )}
-
-      {/* Arrow buttons */}
-      {images.length > 1 && (
-        <>
-          <button
-            onClick={(e) => { e.stopPropagation(); setActive((active - 1 + images.length) % images.length); }}
-            className="absolute left-2 top-1/2 -translate-y-1/2 z-10 w-7 h-7 rounded-full bg-black/40 text-white flex items-center justify-center opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300 hover:bg-black/70"
-          >
-            <iconify-icon icon="lucide:chevron-left" width="16"></iconify-icon>
-          </button>
-          <button
-            onClick={(e) => { e.stopPropagation(); setActive((active + 1) % images.length); }}
-            className="absolute right-2 top-1/2 -translate-y-1/2 z-10 w-7 h-7 rounded-full bg-black/40 text-white flex items-center justify-center opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300 hover:bg-black/70"
-          >
-            <iconify-icon icon="lucide:chevron-right" width="16"></iconify-icon>
-          </button>
-        </>
-      )}
-
-      {/* Image counter badge */}
-      {images.length > 1 && (
-        <div className="absolute top-3 left-3 bg-black/50 text-white text-[10px] px-2 py-0.5 rounded-full z-10 opacity-0 group-hover/carousel:opacity-100 transition-opacity duration-300">
-          {active + 1}/{images.length}
-        </div>
-      )}
-    </div>
-  );
-};
-
 const Inventory = ({ cars }) => {
   const navigate = useNavigate();
   const BASE = import.meta.env.BASE_URL;
@@ -89,6 +26,13 @@ const Inventory = ({ cars }) => {
   const handleCardClick = (car) => {
     const path = car.slug ? `/car/${car.slug}` : `/car/${car.id}`;
     navigate(path);
+  };
+
+  // Helper to resolve image paths
+  const getImgSrc = (img) => {
+    if (!img) return '';
+    const cleanImg = img.trim();
+    return cleanImg.startsWith('http') ? cleanImg : `${BASE}${cleanImg}`;
   };
 
   return (
@@ -118,8 +62,8 @@ const Inventory = ({ cars }) => {
                   className="car-card group rounded-xl overflow-hidden t-card cursor-pointer h-full flex flex-col justify-between transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-red-500/5 relative"
                   onClick={() => handleCardClick(car)}
                 >
-                  {/* Top image section with overlays */}
-                  <div className="relative">
+                  {/* Top image section - Single Static Image */}
+                  <div className="relative aspect-[4/3] overflow-hidden bg-gray-800">
                     {/* Certified stock banner */}
                     <div className="absolute top-3 left-3 bg-red-600 text-white font-semibold text-[9px] uppercase tracking-wider px-2 py-0.5 rounded shadow-md z-20 flex items-center gap-1 pointer-events-none">
                       <iconify-icon icon="lucide:award" width="12"></iconify-icon>
@@ -139,11 +83,12 @@ const Inventory = ({ cars }) => {
                       ></iconify-icon>
                     </button>
 
-                    {/* Carousel */}
-                    <CarImageCarousel
-                      images={car.images || [car.img]}
-                      name={car.name}
-                      BASE={BASE}
+                    {/* Single Static Image */}
+                    <img
+                      src={getImgSrc(car.img)}
+                      alt={car.name}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      loading="lazy"
                     />
                   </div>
 
