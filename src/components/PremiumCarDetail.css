@@ -9,6 +9,12 @@
   --glass-bg: rgba(255, 255, 255, 0.03);
   --glass-border: rgba(255, 255, 255, 0.08);
   --card-radius: 24px;
+  
+  /* NEW: Green Price Variables */
+  --price-green: #22c55e;
+  --price-green-glow: rgba(34, 197, 94, 0.4);
+  --price-green-bg: rgba(34, 197, 94, 0.15);
+  --price-green-border: rgba(34, 197, 94, 0.3);
 }
 
 .premium-container {
@@ -38,33 +44,33 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: 1rem 5%; /* Reduced padding */
+  padding: 1rem 5%;
   position: relative;
   z-index: 10;
   backdrop-filter: blur(10px);
-  gap: 10px; /* Ensure space between elements */
+  gap: 10px;
 }
 
 .back-btn {
   background: rgba(255, 255, 255, 0.05);
   border: 1px solid var(--glass-border);
   color: var(--text-main);
-  padding: 0.5rem 0.8rem; /* Smaller default padding */
+  padding: 0.5rem 0.8rem;
   border-radius: 50px;
   cursor: pointer;
   display: flex;
   align-items: center;
   gap: 6px;
   transition: all 0.3s ease;
-  font-size: 0.85rem; /* Smaller default font */
-  white-space: nowrap; /* Prevent text wrapping */
-  max-width: 180px; /* Limit width */
+  font-size: 0.85rem;
+  white-space: nowrap;
+  max-width: 180px;
 }
 
 .back-btn svg {
-  width: 18px; /* Smaller icon */
+  width: 18px;
   height: 18px;
-  flex-shrink: 0; /* Prevent icon shrinking */
+  flex-shrink: 0;
 }
 
 .back-btn:hover {
@@ -136,7 +142,7 @@
   overflow: hidden;
   background: #000;
   border: 1px solid var(--glass-border);
-  touch-action: pan-y; /* Allow vertical scroll, capture horizontal swipe */
+  touch-action: pan-y;
 }
 
 .image-frame {
@@ -301,13 +307,15 @@
   letter-spacing: 0.5px;
 }
 
-/* Price Section */
+/* --- UPDATED PRICE SECTION (GREEN) --- */
 .price-section {
   text-align: center;
-  background: linear-gradient(180deg, rgba(220, 38, 38, 0.1) 0%, transparent 100%);
+  /* Green gradient background */
+  background: linear-gradient(180deg, var(--price-green-bg) 0%, transparent 100%);
   padding: 2rem;
   border-radius: 16px;
-  border: 1px solid rgba(220, 38, 38, 0.2);
+  /* Green border */
+  border: 1px solid var(--price-green-border);
   margin-bottom: 2rem;
 }
 
@@ -322,8 +330,10 @@
 .price-value {
   font-size: 3rem;
   font-weight: 800;
-  color: var(--primary-red);
-  text-shadow: 0 0 20px rgba(220, 38, 38, 0.4);
+  /* Green text color */
+  color: var(--price-green);
+  /* Green glow shadow */
+  text-shadow: 0 0 20px var(--price-green-glow);
   line-height: 1;
   margin-bottom: 0.5rem;
 }
@@ -546,12 +556,9 @@
   color: #666;
 }
 
-/* ... existing desktop styles ... */
-
 /* Mobile Optimizations */
 @media (max-width: 768px) {
   .premium-container {
-    /* Prevent horizontal scroll and zoom issues */
     overflow-x: hidden;
     width: 100%;
     padding-bottom: 2rem;
@@ -565,7 +572,6 @@
     max-width: 100%;
   }
 
-  /* Fix Navigation Bar */
   .premium-nav {
     padding: 1rem;
     flex-direction: row;
@@ -576,7 +582,6 @@
     padding: 0.5rem 0.8rem;
     font-size: 0.8rem;
     gap: 4px;
-    /* Ensure icon doesn't get too big */
     display: flex;
     align-items: center;
   }
@@ -590,7 +595,6 @@
     font-size: 0.9rem;
   }
 
-  /* Gallery Adjustments */
   .gallery-tabs {
     gap: 0.5rem;
     margin-bottom: 1rem;
@@ -604,7 +608,6 @@
 
   .main-image-wrapper {
     border-radius: 16px;
-    /* Ensure image fits screen width */
     width: 100%;
     max-width: 100%;
   }
@@ -635,11 +638,10 @@
     border-radius: 8px;
   }
 
-  /* Card Adjustments */
   .glass-card {
     padding: 1.25rem;
     border-radius: 16px;
-    position: static; /* Remove sticky on mobile to save space */
+    position: static;
     width: 100%;
     box-sizing: border-box;
   }
@@ -655,7 +657,7 @@
   }
 
   .specs-grid {
-    grid-template-columns: repeat(2, 1fr); /* 2 columns on mobile instead of 3 */
+    grid-template-columns: repeat(2, 1fr);
     gap: 1rem;
     margin-bottom: 1.5rem;
   }
@@ -673,17 +675,15 @@
     height: 16px;
   }
 
-  /* Price Section */
   .price-section {
     padding: 1.25rem;
     margin-bottom: 1.5rem;
   }
 
   .price-value {
-    font-size: 2rem; /* Smaller price font on mobile */
+    font-size: 2rem;
   }
 
-  /* CTA Buttons */
   .btn-primary {
     padding: 1rem;
     font-size: 1rem;

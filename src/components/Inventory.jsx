@@ -123,10 +123,11 @@ const Inventory = ({ cars }) => {
                       </div>
                     </div>
 
-                    {/* Pricing Block - Single Top Border Only */}
+                    {/* Pricing Block - Single Top Border Only with Green Price */}
                     <div className="mt-4 pt-3 pb-3 border-t tbd-lt flex items-center justify-between">
                       <div className="flex items-center">
-                        <span className="text-red-500 font-bold text-lg sm:text-xl">{car.price}</span>
+                        {/* Changed to green color #22c55e */}
+                        <span className="text-[#22c55e] font-bold text-lg sm:text-xl">{car.price}</span>
                       </div>
   
                       <button className="t-ghost-btn hover:bg-red-600 hover:text-white px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1 transition-all">
@@ -134,11 +135,7 @@ const Inventory = ({ cars }) => {
                       </button>
                     </div>
 
-                    {/* Location Address Footer Bar */}
-                    <div className="bg-bg-alt/40 border-t tbd-lt px-4 py-2.5 sm:px-5 flex items-center gap-1.5">
-                      <iconify-icon icon="lucide:map-pin" width="13" className="text-red-500 flex-shrink-0"></iconify-icon>
-                      <span className="text-[10px] sm:text-[11px] t3 font-light truncate">{car.location || 'Near HDB Bank, Jind'}</span>
-                    </div>
+                    {/* Location Address Footer Bar - REMOVED */}
                   </div>
                 </div>
               </motion.div>

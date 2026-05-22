@@ -15,6 +15,12 @@ const Icons = {
       <path d="m9 18 6-6-6-6" />
     </svg>
   ),
+  Close: () => (
+    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+      <line x1="18" y1="6" x2="6" y2="18"></line>
+      <line x1="6" y1="6" x2="18" y2="18"></line>
+    </svg>
+  ),
   WhatsApp: () => (
     <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
       <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413Z" />
@@ -46,7 +52,6 @@ const Icons = {
       <path d="m19.07 4.93-1.41 1.41" />
     </svg>
   ),
-  // Fixed Fuel Icon: Explicitly Red
   Fuel: () => (
     <iconify-icon 
       icon="lucide:fuel" 
@@ -83,11 +88,11 @@ const PremiumCarDetail = () => {
   const [touchStart, setTouchStart] = useState(null);
   const [touchEnd, setTouchEnd] = useState(null);
   
-  // NEW: State to track theme actively
+  // NEW: State for Lightbox (Image Zoom)
+  const [isLightboxOpen, setIsLightboxOpen] = useState(false);
+
   const [currentTheme, setCurrentTheme] = useState('dark');
 
-  // 1. Force Theme Check on EVERY Render & Mount
-  // This ensures that even if the event listener fails, the theme is applied immediately
   useEffect(() => {
     const savedTheme = localStorage.getItem('gautam-theme') || 'dark';
     setCurrentTheme(savedTheme);
@@ -97,9 +102,8 @@ const PremiumCarDetail = () => {
     } else {
       document.documentElement.classList.remove('light');
     }
-  }); // No dependency array = runs on every render
+  });
 
-  // 2. Listen for Storage Events (Cross-tab changes)
   useEffect(() => {
     const handleStorageChange = (e) => {
       if (e.key === 'gautam-theme') {
@@ -191,6 +195,18 @@ const PremiumCarDetail = () => {
     return `${import.meta.env.BASE_URL}${src}`;
   };
 
+  // Open Lightbox
+  const openLightbox = () => {
+    setIsLightboxOpen(true);
+    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+  };
+
+  // Close Lightbox
+  const closeLightbox = () => {
+    setIsLightboxOpen(false);
+    document.body.style.overflow = 'auto'; // Restore scrolling
+  };
+
   return (
     <div className={`premium-container${currentTheme === 'light' ? ' light' : ''}`}>
       <div className="ambient-glow"></div>
@@ -233,6 +249,8 @@ const PremiumCarDetail = () => {
                 src={getImgSrc(currentImage)}
                 alt={`${car.name} - ${activeTab}`}
                 className="main-car-img"
+                onClick={openLightbox} // Add click handler
+                style={{ cursor: 'zoom-in' }} // Visual cue
                 onError={(e) => { e.target.src = 'https://via.placeholder.com/800x600?text=Image+Error'; }}
               />
               <div className="img-counter">{currentImgIndex + 1} / {totalImages}</div>
@@ -320,6 +338,93 @@ const PremiumCarDetail = () => {
           </div>
         </div>
       </div>
+
+      {/* --- LIGHTBOX OVERLAY --- */}
+      {isLightboxOpen && (
+        <div 
+          className="lightbox-overlay" 
+          onClick={closeLightbox}
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            width: '100vw',
+            height: '100vh',
+            backgroundColor: 'rgba(0,0,0,0.95)',
+            zIndex: 99999,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            animation: 'fadeIn 0.3s ease'
+          }}
+        >
+          {/* Close Button */}
+          <button 
+            onClick={closeLightbox}
+            style={{
+              position: 'absolute',
+              top: '20px',
+              right: '30px',
+              background: 'transparent',
+              border: 'none',
+              color: 'white',
+              cursor: 'pointer',
+              zIndex: 100000
+            }}
+          >
+            <Icons.Close />
+          </button>
+
+          {/* Large Image */}
+          <img 
+            src={getImgSrc(currentImage)} 
+            alt="Full Size" 
+            style={{
+              maxWidth: '90%',
+              maxHeight: '90vh',
+              objectFit: 'contain',
+              boxShadow: '0 0 50px rgba(0,0,0,0.5)',
+              borderRadius: '8px',
+              animation: 'zoomIn 0.3s ease'
+            }}
+            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking image
+          />
+          
+          {/* Optional: Navigation in Lightbox */}
+          <button 
+            onClick={(e) => { e.stopPropagation(); prevImage(); }}
+            style={{
+              position: 'absolute',
+              left: '20px',
+              background: 'rgba(255,255,255,0.1)',
+              border: 'none',
+              color: 'white',
+              padding: '10px',
+              borderRadius: '50%',
+              cursor: 'pointer',
+              backdropFilter: 'blur(5px)'
+            }}
+          >
+            <Icons.ArrowLeft />
+          </button>
+          <button 
+            onClick={(e) => { e.stopPropagation(); nextImage(); }}
+            style={{
+              position: 'absolute',
+              right: '20px',
+              background: 'rgba(255,255,255,0.1)',
+              border: 'none',
+              color: 'white',
+              padding: '10px',
+              borderRadius: '50%',
+              cursor: 'pointer',
+              backdropFilter: 'blur(5px)'
+            }}
+          >
+            <Icons.ArrowRight />
+          </button>
+        </div>
+      )}
     </div>
   );
 };
