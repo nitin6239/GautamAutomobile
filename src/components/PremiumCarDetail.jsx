@@ -186,7 +186,7 @@ const PremiumCarDetail = () => {
 
   const handleWhatsApp = () => {
     const msg = `Hi, I am interested in the ${car.name} listed on Gautam Automobile.`;
-    window.open(`https://wa.me/91${car.phone || '9354719192'}?text=${encodeURIComponent(msg)}`, '_blank');
+    window.open(` https://wa.me/91 ${car.phone || '9354719192'}?text=${encodeURIComponent(msg)}`, '_blank');
   };
 
   const getImgSrc = (src) => {
@@ -207,12 +207,24 @@ const PremiumCarDetail = () => {
     document.body.style.overflow = 'auto'; // Restore scrolling
   };
 
+  // Handle Back Button Click
+  const handleBackClick = () => {
+    navigate('/');
+    // Wait for navigation then scroll to inventory
+    setTimeout(() => {
+      const inventorySection = document.getElementById('inventory');
+      if (inventorySection) {
+        inventorySection.scrollIntoView({ behavior: 'smooth' });
+      }
+    }, 100);
+  };
+
   return (
     <div className={`premium-container${currentTheme === 'light' ? ' light' : ''}`}>
       <div className="ambient-glow"></div>
 
       <nav className="premium-nav">
-        <button onClick={() => navigate(-1)} className="back-btn">
+        <button onClick={handleBackClick} className="back-btn">
           <Icons.ArrowLeft /> Back to Inventory
         </button>
         <span className="brand-logo">GAUTAM <span className="accent-text">AUTOMOBILE</span></span>
