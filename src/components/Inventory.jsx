@@ -24,6 +24,7 @@ const Inventory = ({ cars }) => {
   };
 
   const handleCardClick = (car) => {
+    if (car.status === 'sold') return; // Prevent clicking sold cars
     const path = car.slug ? `/car/${car.slug}` : `/car/${car.id}`;
     navigate(path);
   };
@@ -50,6 +51,8 @@ const Inventory = ({ cars }) => {
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
           {cars.map((car, index) => {
             const isLiked = !!wishlist[car.name];
+            const isSold = car.status === 'sold';
+
             return (
               <motion.div
                 key={index}
@@ -59,16 +62,43 @@ const Inventory = ({ cars }) => {
                 transition={{ duration: 0.5, delay: index * 0.1 }}
               >
                 <div
-                  className="car-card group rounded-xl overflow-hidden t-card cursor-pointer h-full flex flex-col justify-between transition-all duration-300 hover:scale-[1.02] hover:shadow-2xl hover:shadow-red-500/5 relative"
+                  className={`car-card group rounded-xl overflow-hidden t-card h-full flex flex-col justify-between transition-all duration-300 hover:shadow-2xl hover:shadow-red-500/5 relative ${isSold ? 'opacity-90' : 'cursor-pointer hover:scale-[1.02]'}`}
                   onClick={() => handleCardClick(car)}
                 >
-                  {/* Top image section - Single Static Image */}
+                  {/* Top image section - SINGLE STATIC IMAGE */}
                   <div className="relative aspect-[4/3] overflow-hidden bg-gray-800">
+                    
+                    {/* SOLD Badge (Diagonal Ribbon) */}
+                    {isSold && (
+                      <div 
+                        style={{
+                          position: 'absolute',
+                          top: '20px',
+                          right: '-25px',
+                          background: 'linear-gradient(45deg, #dc2626, #b91c1c)',
+                          color: 'white',
+                          padding: '6px 40px',
+                          fontSize: '12px',
+                          fontWeight: 'bold',
+                          transform: 'rotate(45deg)',
+                          zIndex: 30,
+                          boxShadow: '0 4px 8px rgba(0,0,0,0.3)',
+                          pointerEvents: 'none',
+                          letterSpacing: '1px',
+                          border: '1px solid rgba(255,255,255,0.2)'
+                        }}
+                      >
+                        SOLD
+                      </div>
+                    )}
+
                     {/* Certified stock banner */}
-                    <div className="absolute top-3 left-3 bg-red-600 text-white font-semibold text-[9px] uppercase tracking-wider px-2 py-0.5 rounded shadow-md z-20 flex items-center gap-1 pointer-events-none">
-                      <iconify-icon icon="lucide:award" width="12"></iconify-icon>
-                      Gautam Certified
-                    </div>
+                    {!isSold && (
+                      <div className="absolute top-3 left-3 bg-red-600 text-white font-semibold text-[9px] uppercase tracking-wider px-2 py-0.5 rounded shadow-md z-20 flex items-center gap-1 pointer-events-none">
+                        <iconify-icon icon="lucide:award" width="12"></iconify-icon>
+                        Gautam Certified
+                      </div>
+                    )}
 
                     {/* Wishlist Heart Icon */}
                     <button
@@ -87,9 +117,14 @@ const Inventory = ({ cars }) => {
                     <img
                       src={getImgSrc(car.img)}
                       alt={car.name}
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+                      className={`w-full h-full object-cover transition-transform duration-700 ${isSold ? 'grayscale brightness-75' : 'group-hover:scale-110'}`}
                       loading="lazy"
                     />
+                    
+                    {/* Overlay for Sold Cars */}
+                    {isSold && (
+                      <div className="absolute inset-0 bg-black/40 pointer-events-none"></div>
+                    )}
                   </div>
 
                   {/* Body Content */}
@@ -97,12 +132,12 @@ const Inventory = ({ cars }) => {
                     <div>
                       {/* Brand Label & RTO badge */}
                       <div className="flex items-center justify-between mb-1.5">
-                        <span className="text-[10px] font-semibold text-red-500 tracking-wider uppercase">Gautam Certified</span>
+                        <span className="text-[10px] font-semibold text-red-500 tracking-wider uppercase">{isSold ? 'Sold Out' : 'Gautam Certified'}</span>
                         <span className="text-[9px] t-sub t3 px-1.5 py-0.5 rounded border tbd font-medium uppercase">{car.rtoCode || 'HR'} Registration</span>
                       </div>
 
                       {/* Heading (Year + Name) */}
-                      <h3 className="text-base sm:text-lg font-semibold tracking-tight group-hover:text-red-400 transition-colors leading-snug">
+                      <h3 className={`text-base sm:text-lg font-semibold tracking-tight leading-snug ${!isSold && 'group-hover:text-red-400'} transition-colors`}>
                         {car.year} {car.name}
                       </h3>
 
@@ -123,19 +158,18 @@ const Inventory = ({ cars }) => {
                       </div>
                     </div>
 
-                    {/* Pricing Block - Single Top Border Only with Green Price */}
+                    {/* Pricing Block - Single Top Border Only */}
                     <div className="mt-4 pt-3 pb-3 border-t tbd-lt flex items-center justify-between">
                       <div className="flex items-center">
-                        {/* Changed to green color #22c55e */}
-                        <span className="text-[#22c55e] font-bold text-lg sm:text-xl">{car.price}</span>
+                        <span className={`${isSold ? 'text-gray-400' : 'text-[#22c55e]'} font-bold text-lg sm:text-xl`}>
+                          {isSold ? 'SOLD' : car.price}
+                        </span>
                       </div>
   
-                      <button className="t-ghost-btn hover:bg-red-600 hover:text-white px-3 py-1.5 rounded-lg text-xs font-semibold flex items-center gap-1 transition-all">
-                        Details <iconify-icon icon="lucide:arrow-right" width="14"></iconify-icon>
+                      <button className={`t-ghost-btn hover:bg-red-600 hover:text-white px-6 py-2.5 sm:px-4 sm:py-1.5 rounded-lg text-sm sm:text-xs font-semibold flex items-center gap-2 transition-all min-h-[48px] ${isSold ? 'opacity-50 cursor-not-allowed' : ''}`}>
+                        {isSold ? 'Unavailable' : 'Details'} {!isSold && <iconify-icon icon="lucide:arrow-right" width="16"></iconify-icon>}
                       </button>
                     </div>
-
-                    {/* Location Address Footer Bar - REMOVED */}
                   </div>
                 </div>
               </motion.div>

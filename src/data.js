@@ -19,8 +19,7 @@ export const CAR_DATA = [
         makeYear: 'Oct 2020',
         insurance: 'Jan 2027',
         insuranceType: 'Comprehensive',
-        rtoCode: 'HR-31',
-        location: 'Near HDB Bank, Jind',
+        color: 'Pearl Arctic White', // Added
         phone: '9354719192',
         img: 'cars/Swift.jpeg',
         images: [
@@ -36,6 +35,7 @@ export const CAR_DATA = [
         id: 2,
         slug: 'nissan-magnite-xv',
         name: 'NISSAN MAGNITE XV',
+        status: 'sold',
         price: '₹4,15,000',
         originalPrice: '₹4,45,000',
         short: '₹4.15L',
@@ -51,8 +51,7 @@ export const CAR_DATA = [
         makeYear: 'Nov 2021',
         insurance: 'Jan 2027',
         insuranceType: '3rd Party',
-        rtoCode: 'HR-20',
-        location: 'Rohtak Road, Jind',
+        color: 'Titan Grey', // Added
         phone: '9354719192',
         img: 'cars/Magnite.jpeg',
         images: [
@@ -82,8 +81,7 @@ export const CAR_DATA = [
         makeYear: 'May 2019',
         insurance: 'Jul 2026',
         insuranceType: 'Comprehensive',
-        rtoCode: 'HR-31',
-        location: 'Near HDB Bank, Jind',
+        color: 'Grandeur Grey', // Added
         phone: '9354719192',
         img: 'cars/Baleno.jpeg',
         images: [

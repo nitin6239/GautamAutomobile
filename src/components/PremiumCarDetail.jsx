@@ -32,25 +32,18 @@ const Icons = {
     </svg>
   ),
   Calendar: () => (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <rect width="18" height="18" x="3" y="4" rx="2" ry="2" />
-      <line x1="16" x2="16" y1="2" y2="6" />
-      <line x1="8" x2="8" y1="2" y2="6" />
-      <line x1="3" x2="21" y1="10" y2="10" />
-    </svg>
+    <iconify-icon 
+      icon="lucide:calendar" 
+      width="18" 
+      style={{ color: '#dc2626' }} 
+    ></iconify-icon>
   ),
   Speed: () => (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M12 14a2 2 0 1 0 0-4 2 2 0 0 0 0 4Z" />
-      <path d="M12 2v2" />
-      <path d="M12 20v2" />
-      <path d="m4.93 4.93 1.41 1.41" />
-      <path d="m17.66 17.66 1.41 1.41" />
-      <path d="M2 12h2" />
-      <path d="M20 12h2" />
-      <path d="m6.34 17.66-1.41 1.41" />
-      <path d="m19.07 4.93-1.41 1.41" />
-    </svg>
+    <iconify-icon 
+      icon="lucide:gauge" 
+      width="18" 
+      style={{ color: '#dc2626' }} 
+    ></iconify-icon>
   ),
   Fuel: () => (
     <iconify-icon 
@@ -60,22 +53,25 @@ const Icons = {
     ></iconify-icon>
   ),
   Transmission: () => (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <circle cx="12" cy="12" r="10" />
-      <path d="M12 6v6l4 2" />
-    </svg>
+    <iconify-icon 
+      icon="lucide:settings-2" 
+      width="18" 
+      style={{ color: '#dc2626' }} 
+    ></iconify-icon>
   ),
   User: () => (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M19 21v-2a4 4 0 0 0-4-4H9a4 4 0 0 0-4 4v2" />
-      <circle cx="12" cy="7" r="4" />
-    </svg>
+    <iconify-icon 
+      icon="lucide:user" 
+      width="18" 
+      style={{ color: '#dc2626' }} 
+    ></iconify-icon>
   ),
-  MapPin: () => (
-    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z" />
-      <circle cx="12" cy="10" r="3" />
-    </svg>
+  Palette: () => (
+    <iconify-icon 
+      icon="lucide:palette" 
+      width="18" 
+      style={{ color: '#dc2626' }} 
+    ></iconify-icon>
   )
 };
 
@@ -88,9 +84,7 @@ const PremiumCarDetail = () => {
   const [touchStart, setTouchStart] = useState(null);
   const [touchEnd, setTouchEnd] = useState(null);
   
-  // NEW: State for Lightbox (Image Zoom)
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
-
   const [currentTheme, setCurrentTheme] = useState('dark');
 
   useEffect(() => {
@@ -186,7 +180,7 @@ const PremiumCarDetail = () => {
 
   const handleWhatsApp = () => {
     const msg = `Hi, I am interested in the ${car.name} listed on Gautam Automobile.`;
-    window.open(` https://wa.me/91 ${car.phone || '9354719192'}?text=${encodeURIComponent(msg)}`, '_blank');
+    window.open(`https://wa.me/91${car.phone || '9354719192'}?text=${encodeURIComponent(msg)}`, '_blank');
   };
 
   const getImgSrc = (src) => {
@@ -195,22 +189,18 @@ const PremiumCarDetail = () => {
     return `${import.meta.env.BASE_URL}${src}`;
   };
 
-  // Open Lightbox
   const openLightbox = () => {
     setIsLightboxOpen(true);
-    document.body.style.overflow = 'hidden'; // Prevent background scrolling
+    document.body.style.overflow = 'hidden';
   };
 
-  // Close Lightbox
   const closeLightbox = () => {
     setIsLightboxOpen(false);
-    document.body.style.overflow = 'auto'; // Restore scrolling
+    document.body.style.overflow = 'auto';
   };
 
-  // Handle Back Button Click
   const handleBackClick = () => {
-    navigate('/');
-    // Wait for navigation then scroll to inventory
+    navigate('/#inventory');
     setTimeout(() => {
       const inventorySection = document.getElementById('inventory');
       if (inventorySection) {
@@ -261,8 +251,8 @@ const PremiumCarDetail = () => {
                 src={getImgSrc(currentImage)}
                 alt={`${car.name} - ${activeTab}`}
                 className="main-car-img"
-                onClick={openLightbox} // Add click handler
-                style={{ cursor: 'zoom-in' }} // Visual cue
+                onClick={openLightbox}
+                style={{ cursor: 'zoom-in' }}
                 onError={(e) => { e.target.src = 'https://via.placeholder.com/800x600?text=Image+Error'; }}
               />
               <div className="img-counter">{currentImgIndex + 1} / {totalImages}</div>
@@ -318,10 +308,11 @@ const PremiumCarDetail = () => {
                 <span>{car.owner || '1st'}</span>
                 <small>Ownership</small>
               </div>
+              {/* Replaced MapPin/Location with Palette/Color */}
               <div className="spec-item">
-                <Icons.MapPin />
-                <span>{car.rtoCode || 'HR'}</span>
-                <small>Location</small>
+                <Icons.Palette />
+                <span>{car.color || 'Not Specified'}</span>
+                <small>Car Color</small>
               </div>
             </div>
 
@@ -370,7 +361,6 @@ const PremiumCarDetail = () => {
             animation: 'fadeIn 0.3s ease'
           }}
         >
-          {/* Close Button */}
           <button 
             onClick={closeLightbox}
             style={{
@@ -387,7 +377,6 @@ const PremiumCarDetail = () => {
             <Icons.Close />
           </button>
 
-          {/* Large Image */}
           <img 
             src={getImgSrc(currentImage)} 
             alt="Full Size" 
@@ -399,10 +388,9 @@ const PremiumCarDetail = () => {
               borderRadius: '8px',
               animation: 'zoomIn 0.3s ease'
             }}
-            onClick={(e) => e.stopPropagation()} // Prevent closing when clicking image
+            onClick={(e) => e.stopPropagation()}
           />
           
-          {/* Optional: Navigation in Lightbox */}
           <button 
             onClick={(e) => { e.stopPropagation(); prevImage(); }}
             style={{

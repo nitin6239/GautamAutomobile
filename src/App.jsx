@@ -1,6 +1,6 @@
 import { Agentation } from "agentation";
 import React, { useState, useEffect } from 'react';
-import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import { BrowserRouter as Router, Routes, Route, useLocation } from 'react-router-dom';
 import { motion, AnimatePresence, useScroll, useSpring } from 'framer-motion';
 
 import Navbar from './components/Navbar';
@@ -19,6 +19,7 @@ import { CAR_DATA } from './data';
 // ---------------- HOME PAGE ----------------
 
 function HomePage() {
+  const location = useLocation(); // Move useLocation here, inside the component rendered by Route
   const [theme, setTheme] = useState(
     localStorage.getItem('gautam-theme') || 'dark'
   );
@@ -39,6 +40,20 @@ function HomePage() {
 
     localStorage.setItem('gautam-theme', theme);
   }, [theme]);
+
+  // Scroll to Inventory if hash is present
+  useEffect(() => {
+    if (location.hash === '#inventory') {
+      // Small timeout to ensure DOM is ready
+      const timer = setTimeout(() => {
+        const inventorySection = document.getElementById('inventory');
+        if (inventorySection) {
+          inventorySection.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, 100);
+      return () => clearTimeout(timer);
+    }
+  }, [location]);
 
   const { scrollYProgress } = useScroll();
 
@@ -184,18 +199,19 @@ function HomePage() {
 // ---------------- MAIN APP ----------------
 
 function App() {
+  // Automatically detect if we are on GitHub Pages or Localhost
+  const isProduction = window.location.hostname !== 'localhost' && window.location.hostname !== '127.0.0.1';
+  const basename = isProduction ? '/GautamAutomobile/' : '';
+
   return (
-    <Router basename="/GautamAutomobile/">
+    <Router basename={basename}>
       <Routes>
         <Route path="/" element={<HomePage />} />
-        <Route
-          path="/car/:id"
-          element={<PremiumCarDetail />}
-        />
+        <Route path="/car/:id" element={<PremiumCarDetail />} />
       </Routes>
 
       {/* Developer Only - Hidden on Live Website */}
-      {import.meta.env.DEV && <Agentation />}
+      {import.meta.env.DEV && typeof Agentation !== 'undefined' && <Agentation />}
     </Router>
   );
 }
