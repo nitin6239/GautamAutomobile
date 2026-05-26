@@ -1,5 +1,10 @@
 @import url('https://fonts.cdnfonts.com/css/archicoco');
 
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
 :root {
   --bg: #09090b; --bg-alt: #18181b; --bg-card: rgba(39,39,42,0.5); --bg-card2: rgba(24,24,27,0.5);
   --bg-input: rgba(255,255,255,0.05); --bg-subtle: rgba(255,255,255,0.05); --bg-overlay: rgba(0,0,0,0.8);
@@ -100,8 +105,11 @@ html.light .t-bg-alt{background:rgba(235,234,232,0.5);backdrop-filter:blur(12px)
 img{max-width:100%;height:auto}
 section{overflow-x:hidden}
 
-body,nav,section,footer,header,div,p,h1,h2,h3,h4,span,a:not(.wa-float),button,input,textarea,label,ul,li{
-  transition:color 0.6s cubic-bezier(0.4, 0, 0.2, 1), border-color 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+body, nav, .nav-bar, .t-bg, .t-bg-alt, .t-card, .t-input, .t-sub, .theme-btn, .call-btn, .menu-btn, .mob-menu, button, input, textarea, select, a, .brand-sub, .brand-tag, .t1, .t2, .t3, .t4, .tbd, .tbd-lt {
+  transition: color 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+              background-color 0.5s cubic-bezier(0.4, 0, 0.2, 1), 
+              border-color 0.5s cubic-bezier(0.4, 0, 0.2, 1),
+              box-shadow 0.5s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
 .brand-name{font-family:'Archicoco', 'Black Ops One', sans-serif;color:#dc2626;letter-spacing:0.12em;text-transform:uppercase;line-height:1}

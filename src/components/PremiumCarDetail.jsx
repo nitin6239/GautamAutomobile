@@ -1,5 +1,6 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
+import { motion, AnimatePresence } from 'framer-motion';
 import { CAR_DATA } from "../data";
 import './PremiumCarDetail.css';
 
@@ -81,8 +82,9 @@ const PremiumCarDetail = () => {
   const [car, setCar] = useState(null);
   const [activeTab, setActiveTab] = useState('exterior');
   const [currentImgIndex, setCurrentImgIndex] = useState(0);
-  const [touchStart, setTouchStart] = useState(null);
-  const [touchEnd, setTouchEnd] = useState(null);
+  
+  const touchStartRef = useRef(null);
+  const touchEndRef = useRef(null);
   
   const [isLightboxOpen, setIsLightboxOpen] = useState(false);
   const [currentTheme, setCurrentTheme] = useState('dark');
@@ -96,7 +98,7 @@ const PremiumCarDetail = () => {
     } else {
       document.documentElement.classList.remove('light');
     }
-  });
+  }, []);
 
   useEffect(() => {
     const handleStorageChange = (e) => {
@@ -161,13 +163,15 @@ const PremiumCarDetail = () => {
 
   const minSwipeDistance = 50;
   const onTouchStart = (e) => {
-    setTouchEnd(null);
-    setTouchStart(e.targetTouches[0].clientX);
+    touchEndRef.current = null;
+    touchStartRef.current = e.targetTouches[0].clientX;
   };
-  const onTouchMove = (e) => setTouchEnd(e.targetTouches[0].clientX);
+  const onTouchMove = (e) => {
+    touchEndRef.current = e.targetTouches[0].clientX;
+  };
   const onTouchEnd = () => {
-    if (!touchStart || !touchEnd) return;
-    const distance = touchStart - touchEnd;
+    if (!touchStartRef.current || !touchEndRef.current) return;
+    const distance = touchStartRef.current - touchEndRef.current;
     const isLeftSwipe = distance > minSwipeDistance;
     const isRightSwipe = distance < -minSwipeDistance;
     if (isLeftSwipe) nextImage();
@@ -246,16 +250,23 @@ const PremiumCarDetail = () => {
           <div className="main-image-wrapper" onTouchStart={onTouchStart} onTouchMove={onTouchMove} onTouchEnd={onTouchEnd}>
             <button className="nav-arrow left" onClick={prevImage}><Icons.ArrowLeft /></button>
 
-            <div className="image-frame">
-              <img
-                src={getImgSrc(currentImage)}
-                alt={`${car.name} - ${activeTab}`}
-                className="main-car-img"
-                onClick={openLightbox}
-                style={{ cursor: 'zoom-in' }}
-                onError={(e) => { e.target.src = 'https://via.placeholder.com/800x600?text=Image+Error'; }}
-              />
-              <div className="img-counter">{currentImgIndex + 1} / {totalImages}</div>
+            <div className="image-frame" style={{ position: 'relative', overflow: 'hidden', width: '100%', height: '100%' }}>
+              <AnimatePresence mode="wait">
+                <motion.img
+                  key={currentImage}
+                  src={getImgSrc(currentImage)}
+                  alt={`${car.name} - ${activeTab}`}
+                  className="main-car-img"
+                  onClick={openLightbox}
+                  style={{ cursor: 'zoom-in', width: '100%', height: '100%', objectFit: 'cover' }}
+                  initial={{ opacity: 0, scale: 0.95 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  exit={{ opacity: 0, scale: 1.05 }}
+                  transition={{ duration: 0.35, ease: "easeInOut" }}
+                  onError={(e) => { e.target.src = 'https://via.placeholder.com/800x600?text=Image+Error'; }}
+                />
+              </AnimatePresence>
+              <div className="img-counter" style={{ zIndex: 10 }}>{currentImgIndex + 1} / {totalImages}</div>
             </div>
 
             <button className="nav-arrow right" onClick={nextImage}><Icons.ArrowRight /></button>

@@ -105,96 +105,106 @@ function HomePage() {
       />
 
       {/* Theme Transition */}
-      <AnimatePresence>
-        {themeWipe && (
-          <motion.div
-            initial={{
-              x:
-                themeWipe === 'dark'
-                  ? '-100%'
-                  : '100%',
-            }}
-            animate={{
-              x:
-                themeWipe === 'dark'
-                  ? ['-100%', '-55%', '-45%', '200%']
-                  : ['100%', '55%', '45%', '-200%'],
-            }}
-            exit={{ opacity: 0 }}
-            transition={{
-              duration: 1.5,
-              times: [0, 0.35, 0.65, 1],
-              ease: ['circOut', 'linear', 'circIn'],
-            }}
-            className={`fixed inset-0 z-[99999] pointer-events-none flex items-center ${
-              themeWipe === 'dark'
-                ? 'justify-end'
-                : 'justify-start'
-            }`}
-            style={{
-              width: '150vw',
-            }}
-          >
-            <div
-              className="absolute inset-0"
-              style={{
-                background:
+      <div className="fixed inset-0 z-[99999] pointer-events-none overflow-hidden" style={{ width: '100vw', height: '100vh' }}>
+        <AnimatePresence>
+          {themeWipe && (
+            <motion.div
+              initial={{
+                x:
                   themeWipe === 'dark'
-                    ? '#09090b'
-                    : '#f5f4f2',
-
-                clipPath:
-                  themeWipe === 'dark'
-                    ? 'polygon(0% -200%, 100% 50%, 0% 300%)'
-                    : 'polygon(100% -200%, 0% 50%, 100% 300%)',
+                    ? '-100%'
+                    : '100%',
               }}
-            />
-
-            <div
-              className={`absolute ${
+              animate={{
+                x:
+                  themeWipe === 'dark'
+                    ? ['-100%', '-55%', '-45%', '200%']
+                    : ['100%', '55%', '45%', '-200%'],
+              }}
+              exit={{ opacity: 0 }}
+              transition={{
+                duration: 1.5,
+                times: [0, 0.35, 0.65, 1],
+                ease: ['circOut', 'linear', 'circIn'],
+              }}
+              className={`fixed inset-0 z-[99999] pointer-events-none flex items-center ${
                 themeWipe === 'dark'
-                  ? 'right-0 translate-x-[95%]'
-                  : 'left-0 -translate-x-[95%]'
-              } flex items-center`}
+                  ? 'justify-end'
+                  : 'justify-start'
+              }`}
+              style={{
+                width: '150vw',
+              }}
             >
-              <iconify-icon
-                icon="ph:car-profile-fill"
-                width="160"
-                className="relative z-10"
+              <div
+                className="absolute inset-0"
                 style={{
-                  color:
+                  background:
                     themeWipe === 'dark'
                       ? '#09090b'
                       : '#f5f4f2',
 
-                  transform:
+                  clipPath:
                     themeWipe === 'dark'
-                      ? 'scaleX(1)'
-                      : 'scaleX(-1)',
-
-                  filter:
-                    'drop-shadow(0px 10px 15px rgba(0,0,0,0.3))',
+                      ? 'polygon(0% -200%, 100% 50%, 0% 300%)'
+                      : 'polygon(100% -200%, 0% 50%, 100% 300%)',
                 }}
-              ></iconify-icon>
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+              />
+
+              <div
+                className={`absolute ${
+                  themeWipe === 'dark'
+                    ? 'right-0 translate-x-[95%]'
+                    : 'left-0 -translate-x-[95%]'
+                } flex items-center`}
+              >
+                <iconify-icon
+                  icon="ph:car-profile-fill"
+                  width="160"
+                  className="relative z-10"
+                  style={{
+                    color:
+                      themeWipe === 'dark'
+                        ? '#09090b'
+                        : '#f5f4f2',
+
+                    transform:
+                      themeWipe === 'dark'
+                        ? 'scaleX(1)'
+                        : 'scaleX(-1)',
+
+                    filter:
+                      'drop-shadow(0px 10px 15px rgba(0,0,0,0.3))',
+                  }}
+                ></iconify-icon>
+              </div>
+            </motion.div>
+          )}
+        </AnimatePresence>
+      </div>
 
       {/* Toast */}
-      {toastMsg && (
-        <div className="fixed top-24 right-4 sm:right-6 z-[100] flex flex-col gap-3">
-          <div className="bg-green-600 text-white px-4 sm:px-5 py-3 rounded-lg shadow-2xl flex items-center gap-2 sm:gap-3 text-xs sm:text-sm font-medium max-w-xs sm:max-w-sm">
-            <iconify-icon
-              icon="lucide:check-circle"
-              width="18"
-              className="flex-shrink-0"
-            ></iconify-icon>
+      <AnimatePresence>
+        {toastMsg && (
+          <div className="fixed top-24 right-4 sm:right-6 z-[100] flex flex-col gap-3 pointer-events-none">
+            <motion.div
+              initial={{ opacity: 0, x: 50, scale: 0.9 }}
+              animate={{ opacity: 1, x: 0, scale: 1 }}
+              exit={{ opacity: 0, x: 30, scale: 0.95 }}
+              transition={{ type: "spring", stiffness: 350, damping: 25 }}
+              className="bg-green-600 text-white px-4 sm:px-5 py-3 rounded-lg shadow-2xl flex items-center gap-2 sm:gap-3 text-xs sm:text-sm font-medium max-w-xs sm:max-w-sm pointer-events-auto"
+            >
+              <iconify-icon
+                icon="lucide:check-circle"
+                width="18"
+                className="flex-shrink-0"
+              ></iconify-icon>
 
-            <span>{toastMsg}</span>
+              <span>{toastMsg}</span>
+            </motion.div>
           </div>
-        </div>
-      )}
+        )}
+      </AnimatePresence>
 
       <Navbar
         toggleTheme={toggleTheme}
@@ -203,7 +213,7 @@ function HomePage() {
 
       <Hero theme={theme} />
 
-      <Inventory cars={CAR_DATA} />
+      <Inventory cars={CAR_DATA} showToast={showToast} />
 
       <About />
 

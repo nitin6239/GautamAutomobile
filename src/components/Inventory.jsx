@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { motion } from 'framer-motion';
 import { useNavigate } from 'react-router-dom';
 
-const Inventory = ({ cars }) => {
+const Inventory = ({ cars, showToast }) => {
   const navigate = useNavigate();
   const BASE = import.meta.env.BASE_URL;
 
@@ -18,9 +18,18 @@ const Inventory = ({ cars }) => {
 
   const toggleWishlist = (carName, e) => {
     e.stopPropagation();
-    const next = { ...wishlist, [carName]: !wishlist[carName] };
+    const nextLikedState = !wishlist[carName];
+    const next = { ...wishlist, [carName]: nextLikedState };
     setWishlist(next);
     localStorage.setItem('gautam-wishlist', JSON.stringify(next));
+
+    if (showToast) {
+      showToast(
+        nextLikedState 
+          ? `Added ${carName} to wishlist! ❤️` 
+          : `Removed ${carName} from wishlist.`
+      );
+    }
   };
 
   const handleCardClick = (car) => {
@@ -101,17 +110,21 @@ const Inventory = ({ cars }) => {
                     )}
 
                     {/* Wishlist Heart Icon */}
-                    <button
+                    <motion.button
                       onClick={(e) => toggleWishlist(car.name, e)}
-                      className="absolute top-3 right-3 z-20 w-8 h-8 rounded-full bg-black/40 text-white hover:bg-black/60 active:scale-90 transition-all flex items-center justify-center cursor-pointer shadow-md"
+                      className="absolute top-3 right-3 z-20 w-8 h-8 rounded-full bg-black/40 text-white hover:bg-black/60 flex items-center justify-center cursor-pointer shadow-md"
                       title={isLiked ? "Remove from wishlist" : "Add to wishlist"}
+                      whileHover={{ scale: 1.15 }}
+                      whileTap={{ scale: 0.85 }}
+                      animate={{ scale: isLiked ? [1, 1.3, 1] : 1 }}
+                      transition={{ type: "spring", stiffness: 400, damping: 15 }}
                     >
                       <iconify-icon 
                         icon={isLiked ? "ph:heart-fill" : "ph:heart"} 
                         width="18" 
                         style={{ color: isLiked ? '#ef4444' : '#ffffff' }}
                       ></iconify-icon>
-                    </button>
+                    </motion.button>
 
                     {/* Single Static Image */}
                     <img
