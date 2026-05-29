@@ -16,17 +16,26 @@ const Navbar = ({ toggleTheme, theme }) => {
     <>
     <nav id="navbar" className={`nav-bar ${!isScrolled ? 'at-top' : ''}`} style={{ background: isScrolled ? 'var(--nav-sc)' : 'var(--nav-bg)', borderBottom: isScrolled ? '1px solid var(--bdr-lt)' : 'none' }}>
       <div className="nav-inner">
-        <div className="nav-logo" style={{ cursor: 'pointer' }} onClick={() => setLogoZoomed(true)}>
+        <div className="nav-logo">
           <motion.img 
             layoutId="main-logo"
             src="https://z-cdn-media.chatglm.cn/files/12075482-158d-4fb7-9660-3765e5ef4468.jpg?auth_key=1879018124-7564de2e83a44c44bb45426ea2a7dc84-0-f49092f13b96252ec677ba34dda9dda5" 
             alt="Logo" 
-            style={{ height: '40px', width: '40px', borderRadius: '8px', objectFit: 'cover', border: '1px solid var(--bdr)' }} 
+            style={{ height: '40px', width: '40px', borderRadius: '8px', objectFit: 'cover', border: '1px solid var(--bdr)', cursor: 'zoom-in' }} 
+            onClick={() => setLogoZoomed(true)}
           />
-          <div style={{ display: 'flex', flexDirection: 'column', marginTop: '2px' }}>
+          <a 
+            href="#home" 
+            style={{ textDecoration: 'none', display: 'flex', flexDirection: 'column', marginTop: '2px', cursor: 'pointer' }}
+            onClick={(e) => {
+              e.preventDefault();
+              document.getElementById('home')?.scrollIntoView({ behavior: 'smooth' });
+              window.history.pushState(null, '', '#home');
+            }}
+          >
             <span className="brand-name" style={{ fontSize: '14px' }}>GAUTAM</span>
             <span className="brand-sub" style={{ fontSize: '8px' }}>Automobile</span>
-          </div>
+          </a>
         </div>
         <div className="nav-links">
           <a href="#home">Home</a>

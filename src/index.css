@@ -225,6 +225,11 @@ html.light .hero-bg-img {
 #home {
   background: var(--bg);
 }
+@media (max-width: 639px) {
+  #home {
+    background: #09090b !important;
+  }
+}
 
 .hero-bg-div {
   background-size: contain;

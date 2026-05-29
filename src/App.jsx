@@ -12,7 +12,6 @@ import Services from './components/Services';
 import WhyChooseUs from './components/WhyChooseUs';
 import Contact from './components/Contact';
 import Footer from './components/Footer';
-import CrazyBackground from './components/CrazyBackground';
 import PremiumCarDetail from './components/PremiumCarDetail';
 
 import { CAR_DATA } from './data';
@@ -112,8 +111,6 @@ function HomePage() {
 
   return (
     <>
-      <CrazyBackground />
-
       {/* Scroll Progress */}
       <motion.div
         className="fixed top-0 left-0 right-0 h-1 bg-red-600 origin-left"

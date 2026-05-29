@@ -45,6 +45,13 @@ const Inventory = ({ cars, showToast }) => {
     return cleanImg.startsWith('http') ? cleanImg : `${BASE}${cleanImg}`;
   };
 
+  // Sort cars so that sold cars are placed at the end of the inventory list
+  const sortedCars = [...cars].sort((a, b) => {
+    const aSold = a.status === 'sold' ? 1 : 0;
+    const bSold = b.status === 'sold' ? 1 : 0;
+    return aSold - bSold;
+  });
+
   return (
     <section id="inventory" className="py-16 sm:py-24 relative t-bg">
       {/* Decorative background glow */}
@@ -58,7 +65,7 @@ const Inventory = ({ cars, showToast }) => {
         </motion.div>
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
-          {cars.map((car, index) => {
+          {sortedCars.map((car, index) => {
             const isLiked = !!wishlist[car.name];
             const isSold = car.status === 'sold';
 
