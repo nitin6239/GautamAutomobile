@@ -93,7 +93,7 @@ export const CAR_DATA = [
         interiorImages: [
             'cars/IMG-20260530-WA0025.jpg', 
             'cars/IMG-20260530-WA0024.jpg', 
-            'cars/IMG-20260530-WA0013.jpg'
+            'cars/IMG-20260530-WA0013.jpg', 
             'cars/IMG-20260530-WA0015.jpg'
         ]
     }
