@@ -81,7 +81,7 @@ export const CAR_DATA = [
         insuranceType: 'Comprehensive',
         color: 'White', // Added
         phone: '9354719192',
-        img: '',
+        img: 'public/cars/IMG-20260530-WA0015.jpg',
         images: [],
         interiorImages: []
     }
