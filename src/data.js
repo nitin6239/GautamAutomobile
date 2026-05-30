@@ -82,7 +82,10 @@ export const CAR_DATA = [
         color: 'White', // Added
         phone: '9354719192',
         img: 'public/cars/IMG-20260530-WA0015.jpg',
-        images: [],
+        images: [
+            'public/cars/IMG-20260530-WA0015.jpg',
+            ''
+        ],
         interiorImages: []
     }
 ];
