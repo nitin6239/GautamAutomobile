@@ -1,39 +1,8 @@
 // src/data.js
 export const CAR_DATA = [
+    
     {
         id: 1,
-        slug: 'swift-vxi',
-        name: 'SWIFT VXI',
-        status: 'sold',
-        price: '₹4,50,000',
-        originalPrice: '₹4,85,000',
-        short: '₹4.5L',
-        year: '2020',
-        km: '64,000 km',
-        fuel: 'Petrol',
-        trans: 'Manual',
-        owner: '1st',
-        engine: '1197cc',
-        spareKey: 'Yes',
-        regNum: 'HR31**8510',
-        regYear: 'Dec 2020',
-        makeYear: 'Oct 2020',
-        insurance: 'Jan 2027',
-        insuranceType: 'Comprehensive',
-        color: 'Pearl Arctic White', // Added
-        phone: '9354719192',
-        img: 'cars/Swift.jpeg',
-        images: [
-            'cars/Swift.jpeg',
-            'https://images.unsplash.com/photo-1609521263047-f8f205293f24?w=800&q=80'
-        ],
-        interiorImages: [
-            'https://images.unsplash.com/photo-1552519507-da3b142c6e3d?w=800&q=80',
-            'https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?w=800&q=80'
-        ]
-    },
-    {
-        id: 2,
         slug: 'nissan-magnite-xv',
         name: 'NISSAN MAGNITE XV',
         status: 'sold',
@@ -64,7 +33,7 @@ export const CAR_DATA = [
         ]
     },
     {
-        id: 3,
+        id: 2,
         slug: 'baleno-delta',
         name: 'BALENO DELTA',
         price: '₹4,60,000',
