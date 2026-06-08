@@ -98,7 +98,7 @@ const Hero = ({ theme = 'dark' }) => {
         </motion.p>
         
         {/* Spacer to keep cars visible in the middle */}
-        <div className="flex-grow min-h-[40px] sm:min-h-[250px] lg:min-h-[300px]"></div>
+        <div className="flex-grow min-h-[20px] sm:min-h-[100px] lg:min-h-[140px]"></div>
         
         <div className="mt-0 sm:mt-auto mb-2 sm:mb-0">
           <motion.p initial={{ opacity: 0, y: 40 }} animate={{ opacity: 1, y: 0 }} transition={{ duration: 0.8, delay: 0.4 }} className="t2 text-white text-xs sm:text-lg md:text-xl font-light leading-relaxed max-w-2xl mx-auto mb-2 sm:mb-10 px-2">
