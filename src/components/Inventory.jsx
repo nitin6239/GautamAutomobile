@@ -75,16 +75,16 @@ const Inventory = ({ cars, showToast }) => {
                 initial={{ opacity: 0, y: 40 }}
                 whileInView={{ opacity: 1, y: 0 }}
                 viewport={{ once: true }}
-                transition={{ duration: 0.5, delay: index * 0.1 }}
+                transition={{ duration: 0.5, delay: index * 0.08 }}
               >
                 <div
-                  className={`car-card group rounded-xl overflow-hidden t-card h-full flex flex-col justify-between transition-all duration-300 hover:shadow-2xl hover:shadow-red-500/5 relative ${isSold ? 'opacity-90' : 'cursor-pointer hover:scale-[1.02]'}`}
+                  className={`car-card car-glass-card group h-full flex flex-col justify-between ${isSold ? 'opacity-80' : 'cursor-pointer'}`}
                   onClick={() => handleCardClick(car)}
                 >
-                  {/* Top image section - SINGLE STATIC IMAGE */}
-                  <div className="relative aspect-[4/3] overflow-hidden bg-gray-800">
+                  {/* ── Image Section ── */}
+                  <div className="relative aspect-[4/3] overflow-hidden rounded-t-[20px]">
                     
-                    {/* SOLD Badge (Diagonal Ribbon) */}
+                    {/* SOLD Ribbon */}
                     {isSold && (
                       <div 
                         style={{
@@ -98,7 +98,7 @@ const Inventory = ({ cars, showToast }) => {
                           fontWeight: 'bold',
                           transform: 'rotate(45deg)',
                           zIndex: 30,
-                          boxShadow: '0 4px 8px rgba(0,0,0,0.3)',
+                          boxShadow: '0 4px 12px rgba(0,0,0,0.4)',
                           pointerEvents: 'none',
                           letterSpacing: '1px',
                           border: '1px solid rgba(255,255,255,0.2)'
@@ -108,18 +108,18 @@ const Inventory = ({ cars, showToast }) => {
                       </div>
                     )}
 
-                    {/* Certified stock banner */}
+                    {/* iOS Frosted Certified Badge */}
                     {!isSold && (
-                      <div className="absolute top-3 left-3 bg-red-600 text-white font-semibold text-[9px] uppercase tracking-wider px-2 py-0.5 rounded shadow-md z-20 flex items-center gap-1 pointer-events-none">
-                        <iconify-icon icon="lucide:award" width="12"></iconify-icon>
+                      <div className="ios-certified-badge absolute top-3 left-3 text-white font-semibold text-[9px] uppercase tracking-wider px-2.5 py-1 z-20 flex items-center gap-1 pointer-events-none shadow-lg">
+                        <iconify-icon icon="lucide:award" width="11"></iconify-icon>
                         Gautam Certified
                       </div>
                     )}
 
-                    {/* Wishlist Heart Icon */}
+                    {/* iOS Frosted Heart Button */}
                     <motion.button
                       onClick={(e) => toggleWishlist(car.name, e)}
-                      className="absolute top-3 right-3 z-20 w-8 h-8 rounded-full bg-black/40 text-white hover:bg-black/60 flex items-center justify-center cursor-pointer shadow-md"
+                      className="ios-heart-btn absolute top-3 right-3 z-20 w-9 h-9 rounded-full text-white flex items-center justify-center cursor-pointer shadow-lg"
                       title={isLiked ? "Remove from wishlist" : "Add to wishlist"}
                       whileHover={{ scale: 1.15 }}
                       whileTap={{ scale: 0.85 }}
@@ -133,7 +133,7 @@ const Inventory = ({ cars, showToast }) => {
                       ></iconify-icon>
                     </motion.button>
 
-                    {/* Single Static Image */}
+                    {/* Car Image */}
                     <img
                       src={getImgSrc(car.img)}
                       alt={car.name}
@@ -141,53 +141,53 @@ const Inventory = ({ cars, showToast }) => {
                       loading="lazy"
                     />
                     
-                    {/* Overlay for Sold Cars */}
+                    {/* Bottom gradient fade into card body */}
+                    <div className="absolute bottom-0 left-0 right-0 h-16 pointer-events-none" style={{ background: 'linear-gradient(to top, rgba(0,0,0,0.5), transparent)' }}></div>
+                    
+                    {/* Sold overlay */}
                     {isSold && (
-                      <div className="absolute inset-0 bg-black/40 pointer-events-none"></div>
+                      <div className="absolute inset-0 bg-black/30 pointer-events-none"></div>
                     )}
                   </div>
 
-                  {/* Body Content */}
-                  <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between">
+                  {/* ── Body Content ── */}
+                  <div className="p-4 sm:p-5 flex-1 flex flex-col justify-between relative z-[3]">
                     <div>
                       {/* Brand Label & RTO badge */}
                       <div className="flex items-center justify-between mb-1.5">
                         <span className="text-[10px] font-semibold text-red-500 tracking-wider uppercase">{isSold ? 'Sold Out' : 'Gautam Certified'}</span>
-                        <span className="text-[9px] t-sub t3 px-1.5 py-0.5 rounded border tbd font-medium uppercase">{car.rtoCode || 'HR'} Registration</span>
+                        <span className="ios-pill text-[9px] t3 px-2 py-0.5 font-medium uppercase">{car.rtoCode || 'HR'} Registration</span>
                       </div>
 
-                      {/* Heading (Year + Name) */}
+                      {/* Title */}
                       <h3 className={`text-base sm:text-lg font-semibold tracking-tight leading-snug ${!isSold && 'group-hover:text-red-400'} transition-colors`}>
                         {car.year} {car.name}
                       </h3>
 
-                      {/* Specs Tags (Sleek Gray Capsules) */}
-                      <div className="flex flex-wrap gap-1.5 mt-2.5">
-                        <span className="text-[10px] sm:text-[11px] t-sub t2 px-2.5 py-1 rounded-full font-light border border-bdr-lt flex items-center gap-1">
+                      {/* iOS Frosted Pill Specs */}
+                      <div className="flex flex-wrap gap-1.5 mt-3">
+                        <span className="ios-pill text-[10px] sm:text-[11px] t2 px-3 py-1.5 font-light flex items-center gap-1.5">
                           <iconify-icon icon="lucide:gauge" width="12"></iconify-icon>
                           {car.km}
                         </span>
-                        <span className="text-[10px] sm:text-[11px] t-sub t2 px-2.5 py-1 rounded-full font-light border border-bdr-lt flex items-center gap-1">
+                        <span className="ios-pill text-[10px] sm:text-[11px] t2 px-3 py-1.5 font-light flex items-center gap-1.5">
                           <iconify-icon icon="lucide:fuel" width="12"></iconify-icon>
                           {car.fuel}
                         </span>
-                        <span className="text-[10px] sm:text-[11px] t-sub t2 px-2.5 py-1 rounded-full font-light border border-bdr-lt flex items-center gap-1">
+                        <span className="ios-pill text-[10px] sm:text-[11px] t2 px-3 py-1.5 font-light flex items-center gap-1.5">
                           <iconify-icon icon="lucide:settings-2" width="12"></iconify-icon>
                           {car.trans}
                         </span>
                       </div>
                     </div>
 
-                    {/* Pricing Block - Single Top Border Only */}
-                    <div className="mt-4 pt-3 pb-3 border-t tbd-lt flex items-center justify-between">
-                      <div className="flex items-center">
-                        <span className={`${isSold ? 'text-gray-400' : 'text-[#22c55e]'} font-bold text-lg sm:text-xl`}>
-                          {isSold ? 'SOLD' : car.price}
-                        </span>
-                      </div>
-  
-                      <button className={`t-ghost-btn hover:bg-red-600 hover:text-white px-6 py-2.5 sm:px-4 sm:py-1.5 rounded-lg text-sm sm:text-xs font-semibold flex items-center gap-2 transition-all min-h-[48px] ${isSold ? 'opacity-50 cursor-not-allowed' : ''}`}>
-                        {isSold ? 'Unavailable' : 'Details'} {!isSold && <iconify-icon icon="lucide:arrow-right" width="16"></iconify-icon>}
+                    {/* iOS Price + Detail Row */}
+                    <div className="ios-divider mt-4 pt-3 pb-1 flex items-center justify-between">
+                      <span className={`${isSold ? 'text-gray-400' : 'text-[#22c55e]'} font-bold text-lg sm:text-xl`}>
+                        {isSold ? 'SOLD' : car.price}
+                      </span>
+                      <button className={`ios-detail-btn px-5 py-2 sm:px-4 sm:py-1.5 text-sm sm:text-xs flex items-center gap-2 ${isSold ? 'opacity-40 cursor-not-allowed' : ''}`}>
+                        {isSold ? 'Unavailable' : 'Details'} {!isSold && <iconify-icon icon="lucide:arrow-right" width="14"></iconify-icon>}
                       </button>
                     </div>
                   </div>

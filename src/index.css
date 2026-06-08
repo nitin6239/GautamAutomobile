@@ -19,7 +19,7 @@
   --year-bg: rgba(0,0,0,0.6); --select-bg: #27272a; --select-text: #ffffff;
 }
 html.light {
-  --bg: #f5f4f2; --bg-alt: #ebeae8; --bg-card: rgba(250,249,247,0.95); --bg-card2: rgba(240,239,237,0.95);
+  --bg: #f5f4f2; --bg-alt: #ebeae8; --bg-card: rgba(250,249,247,0.8); --bg-card2: rgba(240,239,237,0.8);
   --bg-input: rgba(0,0,0,0.04); --bg-subtle: rgba(0,0,0,0.05); --bg-overlay: rgba(0,0,0,0.5);
   --text-1: #27272a; --text-2: #52525b; --text-3: #71717a; --text-4: #a1a1aa;
   --bdr: rgba(0,0,0,0.08); --bdr-lt: rgba(0,0,0,0.04);
@@ -45,8 +45,208 @@ select option { background: var(--select-bg); color: var(--select-text); }
 .t-bg{background:transparent}
 .t-bg-alt{background:rgba(24,24,27,0.45);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
 html.light .t-bg-alt{background:rgba(235,234,232,0.5);backdrop-filter:blur(12px);-webkit-backdrop-filter:blur(12px)}
-.t-card{background:linear-gradient(to bottom right,var(--bg-card),var(--bg-card2));border:1px solid var(--bdr);box-shadow:var(--shadow)}
+.t-card {
+  background: linear-gradient(to bottom right, var(--bg-card), var(--bg-card2));
+  border: 1px solid var(--bdr);
+  box-shadow: var(--shadow);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+}
 .t-card:hover{border-color:var(--red-bdr)}
+
+/* ══════════════════════════════════════════════════════════
+   iOS 18 Frosted Glass Card System — Inventory
+   ══════════════════════════════════════════════════════════ */
+
+/* ── Base Card: Frosted glass with noise ── */
+.car-glass-card {
+  background: linear-gradient(
+    165deg,
+    rgba(255,255,255,0.06) 0%,
+    rgba(255,255,255,0.02) 40%,
+    rgba(255,255,255,0.0) 100%
+  );
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border: 0.5px solid rgba(255,255,255,0.15);
+  border-radius: 20px;
+  box-shadow:
+    0 2px 4px rgba(0,0,0,0.08),
+    0 8px 24px rgba(0,0,0,0.20),
+    0 24px 48px rgba(0,0,0,0.16);
+  position: relative;
+  overflow: hidden;
+  transition:
+    transform 0.55s cubic-bezier(0.25, 1, 0.5, 1),
+    box-shadow 0.55s cubic-bezier(0.25, 1, 0.5, 1),
+    border-color 0.4s ease;
+}
+
+/* Noise texture overlay — Apple's signature subtlety */
+.car-glass-card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  opacity: 0.035;
+  pointer-events: none;
+  background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+  background-repeat: repeat;
+  background-size: 128px 128px;
+  mix-blend-mode: overlay;
+}
+
+/* Top edge highlight — mimics light refraction on glass */
+.car-glass-card::after {
+  content: '';
+  position: absolute;
+  top: 0; left: 0; right: 0;
+  height: 1px;
+  z-index: 2;
+  pointer-events: none;
+  background: linear-gradient(90deg,
+    transparent 5%,
+    rgba(255,255,255,0.3) 25%,
+    rgba(255,255,255,0.45) 50%,
+    rgba(255,255,255,0.3) 75%,
+    transparent 95%
+  );
+}
+
+/* Hover: lift + enhanced depth */
+.car-glass-card:hover {
+  transform: translateY(-6px) scale(1.015);
+  border-color: rgba(255,255,255,0.25);
+  box-shadow:
+    0 4px 8px rgba(0,0,0,0.10),
+    0 16px 40px rgba(0,0,0,0.28),
+    0 32px 64px rgba(0,0,0,0.20),
+    0 0 0 1px rgba(255,255,255,0.08) inset;
+}
+
+/* ── Light theme ── */
+html.light .car-glass-card {
+  background: linear-gradient(
+    165deg,
+    rgba(255,255,255,0.75) 0%,
+    rgba(255,255,255,0.55) 40%,
+    rgba(245,244,242,0.50) 100%
+  );
+  border: 0.5px solid rgba(255,255,255,0.9);
+  box-shadow:
+    0 1px 3px rgba(0,0,0,0.04),
+    0 8px 24px rgba(0,0,0,0.08),
+    0 20px 40px rgba(0,0,0,0.06);
+}
+html.light .car-glass-card::before {
+  opacity: 0.025;
+}
+html.light .car-glass-card::after {
+  background: linear-gradient(90deg,
+    transparent 5%,
+    rgba(255,255,255,0.7) 25%,
+    rgba(255,255,255,0.95) 50%,
+    rgba(255,255,255,0.7) 75%,
+    transparent 95%
+  );
+}
+html.light .car-glass-card:hover {
+  border-color: rgba(0,0,0,0.08);
+  transform: translateY(-6px) scale(1.015);
+  box-shadow:
+    0 2px 6px rgba(0,0,0,0.06),
+    0 16px 40px rgba(0,0,0,0.12),
+    0 32px 64px rgba(0,0,0,0.08);
+}
+
+/* ── Frosted pill badges (iOS style tags) ── */
+.ios-pill {
+  background: rgba(255,255,255,0.08);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 0.5px solid rgba(255,255,255,0.12);
+  border-radius: 100px;
+  transition: background 0.3s ease, border-color 0.3s ease;
+}
+.ios-pill:hover {
+  background: rgba(255,255,255,0.14);
+}
+html.light .ios-pill {
+  background: rgba(0,0,0,0.04);
+  border: 0.5px solid rgba(0,0,0,0.06);
+}
+html.light .ios-pill:hover {
+  background: rgba(0,0,0,0.08);
+}
+
+/* ── Frosted price divider ── */
+.ios-divider {
+  border-top: 0.5px solid rgba(255,255,255,0.08);
+}
+html.light .ios-divider {
+  border-top: 0.5px solid rgba(0,0,0,0.06);
+}
+
+/* ── iOS-style detail button ── */
+.ios-detail-btn {
+  background: rgba(220,38,38,0.12);
+  color: #ef4444;
+  border: none;
+  border-radius: 12px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+.ios-detail-btn:hover {
+  background: rgba(220,38,38,0.22);
+  transform: scale(1.04);
+}
+html.light .ios-detail-btn {
+  background: rgba(220,38,38,0.10);
+}
+html.light .ios-detail-btn:hover {
+  background: rgba(220,38,38,0.18);
+}
+
+/* ── Wishlist frosted circle ── */
+.ios-heart-btn {
+  background: rgba(0,0,0,0.25);
+  backdrop-filter: blur(16px) saturate(180%);
+  -webkit-backdrop-filter: blur(16px) saturate(180%);
+  border: 0.5px solid rgba(255,255,255,0.15);
+  transition: background 0.3s ease, transform 0.2s ease;
+}
+.ios-heart-btn:hover {
+  background: rgba(0,0,0,0.4);
+}
+
+/* ── Certified badge frosted ── */
+.ios-certified-badge {
+  background: rgba(220,38,38,0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 0.5px solid rgba(255,255,255,0.2);
+  border-radius: 10px;
+}
+
+/* ── Inventory section ambient background ── */
+#inventory {
+  background: linear-gradient(180deg,
+    rgba(0,0,0,0) 0%,
+    rgba(9,9,11,0.5) 15%,
+    rgba(9,9,11,0.5) 85%,
+    rgba(0,0,0,0) 100%);
+}
+html.light #inventory {
+  background: linear-gradient(180deg,
+    rgba(245,244,242,0) 0%,
+    rgba(235,234,232,0.35) 15%,
+    rgba(235,234,232,0.35) 85%,
+    rgba(245,244,242,0) 100%);
+}
+
 .t-input{background:var(--bg-input);border:1px solid var(--bdr);color:var(--text-1)}
 .t-input::placeholder{color:var(--text-4)} .t-input:focus{border-color:rgba(220,38,38,0.5);outline:none}
 .t1{color:var(--text-1)} .t2{color:var(--text-2)} .t3{color:var(--text-3)} .t4{color:var(--text-4)}
