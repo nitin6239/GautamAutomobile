@@ -56,13 +56,6 @@ const LiquidGlassCard = React.forwardRef(
               backgroundSize: "128px 128px",
             }}
           />
-          <span
-            className="absolute top-0 left-0 right-0 h-[1px] z-[2] pointer-events-none"
-            style={{
-              background:
-                "linear-gradient(90deg, transparent 5%, rgba(255,255,255,0.25) 25%, rgba(255,255,255,0.40) 50%, rgba(255,255,255,0.25) 75%, transparent 95%)",
-            }}
-          />
           <div className="relative z-10">{children}</div>
         </div>
       </>
