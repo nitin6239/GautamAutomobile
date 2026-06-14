@@ -1022,175 +1022,19 @@ html.light .mob-link:hover {
 }
 
 
-/* ── Mobile Bottom Nav Bar ── */
-.nav-bottom {
-  display: flex;
-  position: fixed;
-  bottom: 0;
-  left: 0;
-  right: 0;
-  z-index: 50;
-  padding: 10px 16px;
-  padding-bottom: calc(10px + env(safe-area-inset-bottom, 0px));
-  align-items: center;
-  justify-content: center;
-  pointer-events: none;
-  background: transparent;
-  border: none;
-  box-shadow: none;
-  backdrop-filter: none;
-  -webkit-backdrop-filter: none;
+/* ── Liquid Glass Bottom Nav — Mobile only ── */
+.liquid-glass-bottom-nav {
+  display: block;
 }
-
-html.light .nav-bottom {
-  background: transparent;
-  border: none;
-  box-shadow: none;
-}
-
 @media (min-width: 1024px) {
-  .nav-bottom { display: none; }
+  .liquid-glass-bottom-nav { display: none !important; }
 }
 
-.nav-bottom-inner {
-  position: relative;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  padding: 5px;
-  border-radius: 100px;
-  background: rgba(255,255,255,0.04);
-  backdrop-filter: blur(8px);
-  -webkit-backdrop-filter: blur(8px);
-  border: 0.5px solid rgba(255,255,255,0.06);
-  box-shadow:
-    inset 0 0 0 0.5px rgba(255,255,255,0.06),
-    inset 0.5px 1px 0px -0.5px rgba(255,255,255,0.50),
-    inset -0.5px -0.5px 0px -0.5px rgba(255,255,255,0.40),
-    inset 0px -4px 1px -3px rgba(255,255,255,0.35),
-    inset -0.3px -1px 3px 0px rgba(0,0,0,0.08),
-    inset -1px 0px 0px -0.5px rgba(0,0,0,0.12),
-    inset 0px 2px 3px -1px rgba(0,0,0,0.12),
-    inset 1px -3px 1px -2px rgba(0,0,0,0.06),
-    0 1px 3px rgba(0,0,0,0.10),
-    0 4px 12px rgba(0,0,0,0.08);
-  width: 100%;
-  max-width: 420px;
-  pointer-events: auto;
-  overflow: hidden;
-  height: 52px;
-}
-
-.nav-bottom-inner::-webkit-scrollbar { display: none; }
-
-html.light .nav-bottom-inner {
-  background: rgba(0,0,0,0.03);
-  border: 0.5px solid rgba(0,0,0,0.04);
-  box-shadow:
-    inset 0 0 0 0.5px rgba(255,255,255,0.50),
-    inset 0.5px 1px 0px -0.5px rgba(255,255,255,0.85),
-    inset -0.5px -0.5px 0px -0.5px rgba(255,255,255,0.70),
-    inset 0px -4px 1px -3px rgba(255,255,255,0.55),
-    inset -0.3px -1px 3px 0px rgba(0,0,0,0.04),
-    inset -1px 0px 0px -0.5px rgba(0,0,0,0.05),
-    inset 0px 2px 3px -1px rgba(0,0,0,0.05),
-    inset 1px -3px 1px -2px rgba(0,0,0,0.02),
-    0 1px 2px rgba(0,0,0,0.04);
-}
-
-.nav-bottom-link {
-  text-decoration: none;
-  font-size: 13px;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  color: var(--text-3);
-  padding: 10px 16px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 100px;
-  transition: color var(--dur-fast) var(--ease-smooth), transform var(--dur-fast) var(--ease-spring);
-  white-space: nowrap;
-  position: relative;
-  z-index: 2;
-  text-shadow: 0 1px 4px rgba(0,0,0,0.35), 0 1px 2px rgba(0,0,0,0.2);
-  flex: 1;
-  text-align: center;
-  min-width: 0;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  will-change: transform;
-}
-
-html.light .nav-bottom-link {
-  color: #6b7280;
-  text-shadow: none;
-}
-
-html.light .nav-bottom-link:hover {
-  color: #4b5563;
-}
-
-html.light .nav-bottom-link:active {
-  color: #374151;
-}
-
-html.light .nav-bottom-link.active {
-  color: #1f2937;
-}
-
-.nav-bottom-link:hover {
-  color: var(--text-1);
-}
-
-.nav-bottom-link:active {
-  transform: scale(0.96);
-}
-
-.nav-bottom-link.active {
-  color: #ffffff;
-}
-
-.nav-bottom-pill {
-  --gbl: 1;
-  --gbd: 1;
-  position: absolute;
-  left: 0;
-  top: 5px;
-  height: calc(100% - 10px);
-  border-radius: 100px;
-  z-index: 1;
-  pointer-events: none;
-  background: rgba(255,255,255,0.08);
-  border: 0.5px solid rgba(255,255,255,0.12);
-  box-shadow:
-    inset 0 0 0 0.5px color-mix(in srgb, white calc(var(--gbl) * 12%), transparent),
-    inset 0.5px 1px 0px -0.5px color-mix(in srgb, white calc(var(--gbl) * 65%), transparent),
-    inset -0.5px -0.5px 0px -0.5px color-mix(in srgb, white calc(var(--gbl) * 50%), transparent),
-    inset 0px -4px 1px -3px color-mix(in srgb, white calc(var(--gbl) * 35%), transparent),
-    inset -0.3px -1px 3px 0px color-mix(in srgb, black calc(var(--gbd) * 8%), transparent),
-    inset -1px 0px 0px -0.5px color-mix(in srgb, black calc(var(--gbd) * 12%), transparent),
-    inset 0px 2px 3px -1px color-mix(in srgb, black calc(var(--gbd) * 12%), transparent),
-    inset 1px -3px 1px -2px color-mix(in srgb, black calc(var(--gbd) * 6%), transparent),
-    0 1px 3px rgba(0,0,0,0.10),
-    0 4px 12px rgba(0,0,0,0.08);
-}
-
-html.light .nav-bottom-pill {
-  background: rgba(0,0,0,0.06);
-  border: 0.5px solid rgba(0,0,0,0.08);
-  box-shadow:
-    inset 0 0 0 0.5px color-mix(in srgb, white calc(var(--gbl) * 50%), transparent),
-    inset 0.5px 1px 0px -0.5px color-mix(in srgb, white calc(var(--gbl) * 85%), transparent),
-    inset -0.5px -0.5px 0px -0.5px color-mix(in srgb, white calc(var(--gbl) * 70%), transparent),
-    inset 0px -4px 1px -3px color-mix(in srgb, white calc(var(--gbl) * 55%), transparent),
-    inset -0.3px -1px 3px 0px color-mix(in srgb, black calc(var(--gbd) * 4%), transparent),
-    inset -1px 0px 0px -0.5px color-mix(in srgb, black calc(var(--gbd) * 5%), transparent),
-    inset 0px 2px 3px -1px color-mix(in srgb, black calc(var(--gbd) * 5%), transparent),
-    inset 1px -3px 1px -2px color-mix(in srgb, black calc(var(--gbd) * 2%), transparent),
-    0 1px 2px rgba(0,0,0,0.04);
-}
+/* Legacy classes — hidden, replaced by liquid glass inline styles */
+.nav-bottom { display: none; }
+.nav-bottom-inner { display: none; }
+.nav-bottom-link { display: none; }
+.nav-bottom-pill { display: none; }
 
 /* iOS Glassmorphism Theme */
 .t-glass {

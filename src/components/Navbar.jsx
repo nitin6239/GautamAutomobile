@@ -10,9 +10,9 @@ const Navbar = ({ toggleTheme, theme }) => {
   const [pillPos, setPillPos] = useState({ x: 0, w: 0 });
   const [pillScale, setPillScale] = useState(1);
   const [bottomPillPos, setBottomPillPos] = useState({ x: 0, w: 0 });
-  const [bottomPillScale, setBottomPillScale] = useState(1);
   const linkRefs = useRef({});
   const bottomLinkRefs = useRef({});
+  const bottomNavRef = useRef(null);
   const menuBtnRef = useRef(null);
   const mobMenuRef = useRef(null);
 
@@ -56,10 +56,8 @@ const Navbar = ({ toggleTheme, theme }) => {
 
   useEffect(() => {
     setPillScale(1.08);
-    setBottomPillScale(1.08);
     const t = setTimeout(() => {
       setPillScale(1);
-      setBottomPillScale(1);
     }, 120);
     return () => clearTimeout(t);
   }, [activeSection]);
@@ -191,56 +189,160 @@ const Navbar = ({ toggleTheme, theme }) => {
         </div>
       </div>
 
-      {/* Mobile Bottom Nav */}
-      <div className="nav-bottom">
-        <div className="nav-bottom-inner">
+      {/* Mobile Bottom Nav — Liquid Glass iOS 26 Style (hidden on desktop via CSS) */}
+      <div className="liquid-glass-bottom-nav" style={{
+        position: 'fixed',
+        bottom: 20,
+        left: '50%',
+        transform: 'translateX(-50%)',
+        zIndex: 9999,
+        width: 'calc(100vw - 32px)',
+        maxWidth: 560,
+      }}>
+        {/* Main Navbar Pill */}
+        <motion.nav
+          ref={bottomNavRef}
+          initial={{ y: 80, opacity: 0, scale: 0.92 }}
+          animate={{ y: 0, opacity: 1, scale: 1 }}
+          transition={{ type: 'spring', stiffness: 260, damping: 22, delay: 0.1 }}
+          style={{
+            display: 'flex',
+            alignItems: 'center',
+            gap: 0,
+            padding: '8px 10px',
+            borderRadius: 999,
+            background: theme === 'dark' ? 'rgba(20, 20, 22, 0.55)' : 'rgba(255,255,255,0.55)',
+            border: `1px solid ${theme === 'dark' ? 'rgba(255,255,255,0.10)' : 'rgba(0,0,0,0.08)'}`,
+            boxShadow: theme === 'dark'
+              ? '0 8px 32px rgba(0,0,0,0.55), 0 1.5px 0 rgba(255,255,255,0.07) inset'
+              : '0 8px 32px rgba(0,0,0,0.12), 0 1.5px 0 rgba(255,255,255,0.9) inset',
+            backdropFilter: 'blur(24px) saturate(180%)',
+            WebkitBackdropFilter: 'blur(24px) saturate(180%)',
+            position: 'relative',
+            overflow: 'hidden',
+            justifyContent: 'space-between',
+          }}
+        >
+          {/* Noise texture overlay */}
+          <div style={{
+            position: 'absolute',
+            inset: 0,
+            borderRadius: 999,
+            backgroundImage: `url("data:image/svg+xml,%3Csvg viewBox='0 0 256 256' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='noise'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23noise)' opacity='0.04'/%3E%3C/svg%3E")`,
+            pointerEvents: 'none',
+            opacity: 0.6,
+          }} />
+
+          {/* Liquid highlight — top shimmer */}
+          <div style={{
+            position: 'absolute',
+            top: 0, left: '10%', right: '10%',
+            height: 1,
+            background: theme === 'dark'
+              ? 'linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent)'
+              : 'linear-gradient(90deg, transparent, rgba(255,255,255,0.9), transparent)',
+            borderRadius: 999,
+            pointerEvents: 'none',
+          }} />
+
+          {/* Animated background pill */}
+          <motion.div
+            animate={{ left: bottomPillPos.x, width: bottomPillPos.w }}
+            transition={{ type: 'spring', stiffness: 380, damping: 28, mass: 0.6 }}
+            style={{
+              position: 'absolute',
+              top: 6,
+              bottom: 6,
+              borderRadius: 999,
+              background: theme === 'dark' ? 'rgba(255,255,255,0.13)' : 'rgba(255,255,255,0.80)',
+              border: `1px solid ${theme === 'dark' ? 'rgba(255,255,255,0.22)' : 'rgba(255,255,255,0.95)'}`,
+              boxShadow: theme === 'dark'
+                ? '0 2px 16px rgba(0,0,0,0.4), 0 1px 0 rgba(255,255,255,0.15) inset'
+                : '0 2px 16px rgba(0,0,0,0.12), 0 1px 0 rgba(255,255,255,1) inset',
+              backdropFilter: 'blur(12px)',
+              WebkitBackdropFilter: 'blur(12px)',
+              pointerEvents: 'none',
+            }}
+          />
+
+          {/* Nav Items */}
           {bottomNavLinks.map((link) => {
             const sectionId = link === 'Home' ? 'home' : link.toLowerCase();
+            const isActive = activeSection === sectionId;
             const iconMap = {
               Home: 'lucide:home',
               Inventory: 'lucide:car-front',
               Contact: 'lucide:phone',
             };
             return (
-              <a
+              <motion.button
                 key={link}
                 ref={(el) => { bottomLinkRefs.current[sectionId] = el; }}
-                href={`#${link.toLowerCase()}`}
-                className={`nav-bottom-link ${activeSection === sectionId ? 'active' : ''}`}
-                onClick={(e) => {
-                  e.preventDefault();
+                onClick={() => {
                   document.getElementById(sectionId)?.scrollIntoView({ behavior: 'smooth' });
                   window.history.pushState(null, '', `#${link.toLowerCase()}`);
                   setMobMenuOpen(false);
                 }}
+                whileTap={{ scale: 0.88 }}
+                style={{
+                  position: 'relative',
+                  display: 'flex',
+                  flexDirection: 'column',
+                  alignItems: 'center',
+                  justifyContent: 'center',
+                  gap: 3,
+                  padding: '8px 14px',
+                  borderRadius: 999,
+                  border: 'none',
+                  background: 'transparent',
+                  cursor: 'pointer',
+                  outline: 'none',
+                  flex: 1,
+                  minWidth: 0,
+                  zIndex: 1,
+                }}
               >
-                <iconify-icon icon={iconMap[link]} width="20" height="20" />
-              </a>
+                {/* Icon */}
+                <motion.div
+                  animate={{
+                    color: isActive
+                      ? (theme === 'dark' ? '#ffffff' : '#111111')
+                      : (theme === 'dark' ? 'rgba(180,180,185,0.75)' : 'rgba(80,80,90,0.75)'),
+                    scale: isActive ? 1.12 : 1,
+                    y: isActive ? -1 : 0,
+                  }}
+                  transition={{ type: 'spring', stiffness: 400, damping: 25 }}
+                  style={{ lineHeight: 0 }}
+                >
+                  <iconify-icon icon={iconMap[link]} width="20" height="20" />
+                </motion.div>
+
+                {/* Active dot indicator */}
+                <AnimatePresence>
+                  {isActive && (
+                    <motion.div
+                      initial={{ scale: 0, opacity: 0 }}
+                      animate={{ scale: 1, opacity: 1 }}
+                      exit={{ scale: 0, opacity: 0 }}
+                      transition={{ type: 'spring', stiffness: 500, damping: 25 }}
+                      style={{
+                        position: 'absolute',
+                        bottom: 2,
+                        left: '50%',
+                        transform: 'translateX(-50%)',
+                        width: 4,
+                        height: 4,
+                        borderRadius: '50%',
+                        background: '#E8231A',
+                        boxShadow: '0 0 6px rgba(232,35,26,0.8)',
+                      }}
+                    />
+                  )}
+                </AnimatePresence>
+              </motion.button>
             );
           })}
-          {/* WhatsApp inside bottom nav when at top */}
-          {false && (
-            <a
-              href="https://wa.me/919354719192?text=Hi%20Gautam%20Automobile!%20I'm%20interested%20in%20buying%20a%20car."
-              target="_blank"
-              rel="noreferrer"
-              className="nav-bottom-link wa-nav-link"
-              title="Chat on WhatsApp"
-              aria-label="Chat on WhatsApp"
-            >
-              <FaWhatsapp size={14} color="#25D366" />
-            </a>
-          )}
-          <motion.div
-            className="nav-bottom-pill"
-            animate={{ x: bottomPillPos.x, width: bottomPillPos.w, scale: bottomPillScale }}
-            transition={{
-              x: { type: "spring", stiffness: 180, damping: 28, mass: 0.8 },
-              width: { type: "spring", stiffness: 180, damping: 28, mass: 0.8 },
-              scale: { type: "spring", stiffness: 300, damping: 15, mass: 0.6 },
-            }}
-          />
-        </div>
+        </motion.nav>
       </div>
 
       {/* WhatsApp Float (always visible on desktop) */}
