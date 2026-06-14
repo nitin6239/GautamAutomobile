@@ -21,7 +21,7 @@ function HomePage() {
   const location = useLocation();
 
   const [theme, setTheme] = useState(
-    localStorage.getItem('gautam-theme') || 'dark'
+    localStorage.getItem('gautam-theme') || 'light'
   );
 
   const [toastMsg, setToastMsg] = useState('');

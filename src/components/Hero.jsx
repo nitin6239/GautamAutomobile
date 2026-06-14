@@ -31,7 +31,7 @@ const AnimatedCounter = ({ target, suffix = '', duration = 2000 }) => {
 };
 
 
-const Hero = ({ theme = 'dark' }) => {
+const Hero = ({ theme = 'light' }) => {
   const BASE = import.meta.env.BASE_URL;
   const { scrollY } = useScroll();
   const yBg = useTransform(scrollY, [0, 1000], [0, 300]);

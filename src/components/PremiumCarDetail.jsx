@@ -91,7 +91,7 @@ const PremiumCarDetail = () => {
   const [currentTheme, setCurrentTheme] = useState('dark');
 
   useEffect(() => {
-    const savedTheme = localStorage.getItem('gautam-theme') || 'dark';
+    const savedTheme = localStorage.getItem('gautam-theme') || 'light';
     setCurrentTheme(savedTheme);
     
     if (savedTheme === 'light') {
