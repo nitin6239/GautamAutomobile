@@ -315,65 +315,466 @@ body, nav, .nav-bar, .t-bg, .t-bg-alt, .t-card, .t-input, .t-sub, .theme-btn, .c
 html.light .theme-icon-sun{display:none}
 html.light .theme-icon-moon{display:block}
 
-.nav-bar{
-  position:fixed;top:0;left:0;right:0;z-index:50;
-  height:64px;display:flex;align-items:center;
-  background:var(--nav-bg);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);
+/* ── iOS 26 Liquid Glass Navbar ── */
+
+.liquid-glass-nav {
+  --glass-reflex-light: 1;
+  --glass-reflex-dark: 1;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 50;
+  height: 64px;
+  display: flex;
+  align-items: center;
+  background: transparent;
+  border-bottom: none;
+  backdrop-filter: none;
+  -webkit-backdrop-filter: none;
+  box-shadow: none;
+  transition:
+    height 0.4s cubic-bezier(0.25, 1, 0.5, 1),
+    box-shadow 0.55s cubic-bezier(0.25, 1, 0.5, 1),
+    border-color 0.4s ease,
+    background-color 0.4s ease;
 }
-@media(min-width:640px){.nav-bar{height:80px}}
-.nav-inner{
-  max-width:1280px;margin:0 auto;width:100%;
-  padding:0 12px;display:flex;align-items:center;justify-content:space-between;gap:8px;
-  overflow:hidden;
+
+@media (min-width: 640px) {
+  .liquid-glass-nav { height: 80px; }
 }
-@media(min-width:640px){.nav-inner{padding:0 24px;gap:16px}}
-.nav-logo{display:flex;align-items:center;gap:6px;flex-shrink:0;text-decoration:none;overflow:hidden;min-width:0}
-@media(min-width:640px){.nav-logo{gap:12px}}
-.nav-links{display:none;align-items:center;gap:20px;flex-shrink:0}
-@media(min-width:1024px){.nav-links{display:flex}}
-@media(min-width:1280px){.nav-links{gap:24px}}
-.nav-links a{text-decoration:none;font-size:14px;font-weight:500;color:var(--text-2);transition:color 0.2s}
-.nav-links a:hover{color:#ef4444}
-.nav-right{display:flex;align-items:center;gap:6px;flex-shrink:0}
-@media(min-width:640px){.nav-right{gap:12px}}
-.theme-btn{
-  width:36px;height:36px;border-radius:8px;
-  background:var(--bg-subtle);border:1px solid var(--bdr);
-  display:flex!important;align-items:center;justify-content:center;
-  color:var(--text-2);cursor:pointer;flex-shrink:0;
-  transition:color 0.2s,background-color 0.2s,border-color 0.2s;
+
+/* ── Scrolled state ── */
+.liquid-glass-nav.scrolled {
+  height: 56px;
+  background: transparent;
+  border-bottom: none;
+  box-shadow: none;
 }
-.theme-btn:hover{color:#ef4444}
-.call-btn{
-  display:flex;align-items:center;justify-content:center;
-  width:36px;height:36px;border-radius:8px;
-  background:#dc2626;color:#ffffff;
-  text-decoration:none;flex-shrink:0;
-  transition:background-color 0.2s;
+
+@media (min-width: 640px) {
+  .liquid-glass-nav.scrolled { height: 64px; }
 }
-.call-btn:hover{background:#ef4444}
-@media(min-width:768px){
-  .call-btn{
-      width:auto;height:36px;
-      gap:6px;font-size:13px;font-weight:600;
-      padding:0 14px;border-radius:8px;
+
+/* ── At-top (over hero) ── */
+.liquid-glass-nav.at-top {
+  background: transparent !important;
+  border-bottom-color: transparent !important;
+  box-shadow: none !important;
+}
+
+html.light .liquid-glass-nav.at-top {
+  background: transparent !important;
+}
+
+/* ── Light theme ── */
+html.light .liquid-glass-nav {
+  background: transparent;
+  border-bottom: none;
+  box-shadow: none;
+}
+
+html.light .liquid-glass-nav.scrolled {
+  background: transparent;
+  box-shadow: none;
+}
+
+/* ── Inner layout ── */
+.nav-inner {
+  max-width: 1280px;
+  margin: 0 auto;
+  width: 100%;
+  padding: 0 12px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  overflow: hidden;
+}
+
+@media (min-width: 640px) {
+  .nav-inner { padding: 0 24px; gap: 16px; }
+}
+
+/* ── Logo ── */
+.nav-logo {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+  text-decoration: none;
+  overflow: hidden;
+  min-width: 0;
+}
+
+@media (min-width: 640px) {
+  .nav-logo { gap: 12px; }
+}
+
+.nav-logo-img {
+  height: 36px;
+  width: 36px;
+  border-radius: 10px;
+  object-fit: cover;
+  border: 0.5px solid rgba(255,255,255,0.14);
+  cursor: zoom-in;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.nav-logo-img:hover {
+  transform: scale(1.04);
+  box-shadow: 0 4px 16px rgba(220,38,38,0.15);
+}
+
+.nav-brand-link {
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  margin-top: 2px;
+  cursor: pointer;
+}
+
+/* ── Nav link pill container (liquid glass) ── */
+.nav-links {
+  display: none;
+}
+
+@media (min-width: 1024px) {
+  .nav-links { display: flex; }
+}
+
+.liquid-glass-nav-links {
+  position: relative;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+  padding: 3px;
+  border-radius: 100px;
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 0.5px solid rgba(255,255,255,0.06);
+  box-shadow:
+    inset 0 0 0 0.5px rgba(255,255,255,0.04);
+}
+
+html.light .liquid-glass-nav-links {
+  background: rgba(0,0,0,0.03);
+  border: 0.5px solid rgba(0,0,0,0.04);
+}
+
+.nav-link {
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+  color: var(--text-3);
+  padding: 6px 14px;
+  border-radius: 100px;
+  transition: color 0.25s ease, transform 0.25s ease;
+  white-space: nowrap;
+  text-shadow: 0 1px 4px rgba(0,0,0,0.35), 0 1px 2px rgba(0,0,0,0.2);
+  position: relative;
+  z-index: 2;
+}
+
+html.light .nav-link {
+  text-shadow: 0 0.5px 2px rgba(255,255,255,0.6), 0 0.5px 1px rgba(255,255,255,0.4);
+}
+
+.nav-link:hover {
+  color: var(--text-1);
+}
+
+html.light .nav-link:hover {
+}
+
+.nav-link:active {
+  transform: scale(0.96);
+}
+
+.nav-link.active {
+  color: #ffffff;
+  position: relative;
+}
+
+.nav-link.active::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  border-radius: 100px;
+  background: linear-gradient(
+    135deg,
+    rgba(255,255,255,0.10) 0%,
+    rgba(255,255,255,0.02) 50%,
+    rgba(255,255,255,0.06) 100%
+  );
+  pointer-events: none;
+}
+
+html.light .nav-link.active {
+  color: #27272a;
+}
+
+html.light .nav-link.active::after {
+  background: linear-gradient(
+    135deg,
+    rgba(0,0,0,0.03) 0%,
+    rgba(0,0,0,0.01) 50%,
+    rgba(0,0,0,0.04) 100%
+  );
+}
+
+/* ── Floating liquid glass pill ── */
+.nav-pill {
+  --gbl: 1;
+  --gbd: 1;
+  position: absolute;
+  left: 0;
+  top: 3px;
+  height: calc(100% - 6px);
+  border-radius: 100px;
+  z-index: 1;
+  pointer-events: none;
+  background: rgba(255,255,255,0.08);
+  border: 0.5px solid rgba(255,255,255,0.12);
+  box-shadow:
+    inset 0 0 0 0.5px color-mix(in srgb, white calc(var(--gbl) * 12%), transparent),
+    inset 0.5px 1px 0px -0.5px color-mix(in srgb, white calc(var(--gbl) * 65%), transparent),
+    inset -0.5px -0.5px 0px -0.5px color-mix(in srgb, white calc(var(--gbl) * 50%), transparent),
+    inset 0px -4px 1px -3px color-mix(in srgb, white calc(var(--gbl) * 35%), transparent),
+    inset -0.3px -1px 3px 0px color-mix(in srgb, black calc(var(--gbd) * 8%), transparent),
+    inset -1px 0px 0px -0.5px color-mix(in srgb, black calc(var(--gbd) * 12%), transparent),
+    inset 0px 2px 3px -1px color-mix(in srgb, black calc(var(--gbd) * 12%), transparent),
+    inset 1px -3px 1px -2px color-mix(in srgb, black calc(var(--gbd) * 6%), transparent),
+    0 1px 3px rgba(0,0,0,0.10),
+    0 4px 12px rgba(0,0,0,0.08);
+  transition:
+    box-shadow 0.3s ease,
+    border-color 0.3s ease;
+}
+
+html.light .nav-pill {
+  background: rgba(0,0,0,0.06);
+  border: 0.5px solid rgba(0,0,0,0.08);
+  box-shadow:
+    inset 0 0 0 0.5px color-mix(in srgb, white calc(var(--gbl) * 50%), transparent),
+    inset 0.5px 1px 0px -0.5px color-mix(in srgb, white calc(var(--gbl) * 85%), transparent),
+    inset -0.5px -0.5px 0px -0.5px color-mix(in srgb, white calc(var(--gbl) * 70%), transparent),
+    inset 0px -4px 1px -3px color-mix(in srgb, white calc(var(--gbl) * 55%), transparent),
+    inset -0.3px -1px 3px 0px color-mix(in srgb, black calc(var(--gbd) * 4%), transparent),
+    inset -1px 0px 0px -0.5px color-mix(in srgb, black calc(var(--gbd) * 5%), transparent),
+    inset 0px 2px 3px -1px color-mix(in srgb, black calc(var(--gbd) * 5%), transparent),
+    inset 1px -3px 1px -2px color-mix(in srgb, black calc(var(--gbd) * 2%), transparent),
+     0 1px 2px rgba(0,0,0,0.04);
+}
+
+/* ── Right section ── */
+.nav-right {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  flex-shrink: 0;
+}
+
+@media (min-width: 640px) {
+  .nav-right { gap: 10px; }
+}
+
+/* ── Liquid glass nav buttons ── */
+.liquid-glass-nav-btn {
+  --gbl: 1;
+  --gbd: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  background: rgba(255,255,255,0.05);
+  border: 0.5px solid rgba(255,255,255,0.07);
+  color: var(--text-2);
+  cursor: pointer;
+  flex-shrink: 0;
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  box-shadow:
+    inset 0 0 0 0.5px color-mix(in srgb, white calc(var(--gbl) * 6%), transparent),
+    inset 0.5px 1px 0px -0.5px color-mix(in srgb, white calc(var(--gbl) * 50%), transparent),
+    inset -0.5px -0.5px 0px -0.5px color-mix(in srgb, white calc(var(--gbl) * 40%), transparent),
+    0 1px 2px rgba(0,0,0,0.06);
+  transition:
+    background 0.25s ease,
+    color 0.25s ease,
+    border-color 0.25s ease,
+    transform 0.2s ease,
+    box-shadow 0.3s ease;
+  -webkit-tap-highlight-color: transparent;
+}
+
+.liquid-glass-nav-btn:hover {
+  background: rgba(255,255,255,0.10);
+  color: var(--text-1);
+  border-color: rgba(255,255,255,0.12);
+}
+
+.liquid-glass-nav-btn:active {
+  transform: scale(0.92);
+}
+
+.liquid-glass-btn-icon {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+html.light .liquid-glass-nav-btn {
+  background: rgba(0,0,0,0.03);
+  border: 0.5px solid rgba(0,0,0,0.05);
+}
+
+html.light .liquid-glass-nav-btn:hover {
+  background: rgba(0,0,0,0.06);
+}
+
+/* ── Call button ── */
+.call-btn {
+  background: #dc2626 !important;
+  color: #ffffff !important;
+  border-color: transparent !important;
+  text-decoration: none;
+  gap: 5px;
+}
+
+.call-btn:hover {
+  background: #ef4444 !important;
+}
+
+@media (min-width: 640px) {
+  .call-btn {
+    width: auto;
+    height: 34px;
+    padding: 0 14px;
+    gap: 6px;
   }
-  .call-btn .call-label{display:inline}
+  .call-btn svg {
+    width: 14px;
+    height: 14px;
+    flex-shrink: 0;
+  }
+  .call-label { display: inline; font-size: 12px; font-weight: 600; letter-spacing: 0.01em; }
 }
-.call-btn .call-label{display:none}
-.menu-btn{
-  display:flex;align-items:center;justify-content:center;
-  padding:8px;color:var(--text-1);background:none;border:none;cursor:pointer;flex-shrink:0;
+
+.call-label { display: none; }
+
+.menu-btn {
+  padding: 0;
+  width: 34px;
+  height: 34px;
+  border-radius: 10px;
+  color: var(--text-1);
+  cursor: pointer;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  -webkit-tap-highlight-color: transparent;
 }
-.mob-menu{
-  display:none;position:absolute;top:64px;left:0;right:0;
-  background:var(--bg-alt);border-bottom:1px solid var(--bdr);
-  backdrop-filter:blur(12px);
+
+.menu-icon {
+  width: 20px;
+  height: 20px;
 }
-@media(min-width:640px){.mob-menu{top:80px}}
-.mob-menu.open{display:block}
-.mob-menu a{display:block;padding:12px 16px;font-size:14px;font-weight:500;color:var(--text-2);text-decoration:none}
-.mob-menu a:hover{color:#ef4444}
+
+@media (min-width: 640px) {
+  .menu-icon { width: 22px; height: 22px; }
+}
+
+/* ── Liquid Glass Mobile Panel ── */
+.glass-mob-panel {
+  position: absolute;
+  top: calc(100% - 4px);
+  left: 8px;
+  right: 8px;
+  background: rgba(13,13,17,0.82);
+  backdrop-filter: blur(40px) saturate(180%);
+  -webkit-backdrop-filter: blur(40px) saturate(180%);
+  border: 0.5px solid rgba(255,255,255,0.10);
+  border-radius: 20px;
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.04),
+    inset 1px 2px 0px -1px rgba(255,255,255,0.15),
+    inset -1px -1px 0px -1px rgba(255,255,255,0.10),
+    0 16px 48px rgba(0,0,0,0.4),
+    0 4px 12px rgba(0,0,0,0.2);
+  overflow: hidden;
+  transform-origin: top center;
+}
+
+html.light .glass-mob-panel {
+  background: rgba(250,249,247,0.88);
+  border: 0.5px solid rgba(0,0,0,0.06);
+  box-shadow:
+    inset 0 0 0 1px rgba(255,255,255,0.5),
+    inset 1px 2px 0px -1px rgba(255,255,255,0.7),
+    0 16px 48px rgba(0,0,0,0.08),
+    0 4px 12px rgba(0,0,0,0.04);
+}
+
+.mob-menu-inner {
+  padding: 8px;
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.mob-link {
+  display: block;
+  padding: 12px 16px;
+  font-size: 15px;
+  font-weight: 500;
+  color: var(--text-2);
+  text-decoration: none;
+  border-radius: 12px;
+  transition: background 0.2s ease, color 0.2s ease;
+}
+
+.mob-link:hover {
+  background: rgba(255,255,255,0.08);
+  color: var(--text-1);
+}
+
+html.light .mob-link:hover {
+  background: rgba(0,0,0,0.04);
+}
+
+.mob-call {
+  display: block;
+  padding: 12px 16px;
+  margin-top: 4px;
+  font-size: 15px;
+  font-weight: 600;
+  color: #ffffff;
+  background: #dc2626;
+  text-decoration: none;
+  border-radius: 12px;
+  text-align: center;
+  transition: background 0.2s ease;
+}
+
+.mob-call:hover {
+  background: #ef4444;
+}
+
+@media (min-width: 640px) {
+  .glass-mob-panel {
+    left: auto;
+    right: 24px;
+    min-width: 240px;
+  }
+}
 
 
 /* iOS Glassmorphism Theme */
@@ -448,20 +849,21 @@ html.light .hero-glass-card {
 }
 
 /* Force dark-themed navbar when at the top (over the hero image) */
-.nav-bar.at-top {
-  background: rgba(0, 0, 0, 0.5) !important;
-  border-bottom: none !important;
+.liquid-glass-nav.at-top .nav-link {
+  color: rgba(255,255,255,0.85) !important;
 }
-.nav-bar.at-top .nav-links a,
-.nav-bar.at-top .brand-sub,
-.nav-bar.at-top .menu-btn,
-.nav-bar.at-top .theme-btn {
+.liquid-glass-nav.at-top .nav-link:hover {
   color: #ffffff !important;
 }
-.nav-bar.at-top .theme-btn {
-  background: rgba(255, 255, 255, 0.1) !important;
-  border-color: rgba(255, 255, 255, 0.2) !important;
+.liquid-glass-nav.at-top .nav-link.active {
+  color: #ffffff !important;
 }
-.nav-bar.at-top .nav-links a:hover {
-  color: #dc2626 !important;
+.liquid-glass-nav.at-top .brand-sub {
+  color: rgba(255,255,255,0.6) !important;
+}
+.liquid-glass-nav.at-top .menu-btn,
+.liquid-glass-nav.at-top .theme-btn {
+  color: #ffffff !important;
+  background: rgba(255,255,255,0.10) !important;
+  border-color: rgba(255,255,255,0.15) !important;
 }
