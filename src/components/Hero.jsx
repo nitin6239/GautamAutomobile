@@ -39,19 +39,22 @@ const Hero = ({ theme = 'light' }) => {
   return (
     <section id="home" className="relative min-h-[100dvh] flex items-center justify-center overflow-visible bg-transparent" style={{ background: 'transparent' }}>
       
-      {/* Cinematic Showroom Background */}
-      <div
-        className="hero-bg-div"
-        style={{
-          position: 'absolute',
-          inset: 0,
-          width: '100%',
-          height: '100%',
-          zIndex: 0,
-          backgroundImage: `url(${BASE}showroom-bg.png)`,
-          pointerEvents: 'none',
-        }}
-      />
+      {/* Cinematic Showroom Background Video */}
+      <div style={{ position: 'absolute', inset: 0, width: '100%', height: '100%', overflow: 'hidden', zIndex: 0, background: 'var(--bg)' }}>
+        <video
+          autoPlay
+          loop
+          muted
+          playsInline
+          style={{
+            width: '100%',
+            height: '100%',
+            objectFit: 'cover',
+          }}
+        >
+          <source src={`${BASE}Car_sketches_transforming_on_paper_202606141552.mp4`} type="video/mp4" />
+        </video>
+      </div>
       {/* Dark overlay to ensure text readability */}
       <div 
         style={{
@@ -59,8 +62,8 @@ const Hero = ({ theme = 'light' }) => {
           inset: 0,
           width: '100%',
           height: '100%',
-          zIndex: 0,
-          background: 'linear-gradient(to bottom, rgba(0,0,0,0.8), rgba(0,0,0,0.6), rgba(0,0,0,0.8))',
+          zIndex: 1,
+          background: 'linear-gradient(to bottom, rgba(0,0,0,0.5), rgba(0,0,0,0.3), rgba(0,0,0,0.5))',
           pointerEvents: 'none'
         }}
       />
