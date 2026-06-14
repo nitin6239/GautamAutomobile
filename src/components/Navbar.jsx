@@ -48,7 +48,7 @@ const Navbar = ({ toggleTheme, theme }) => {
     return () => clearTimeout(t);
   }, [activeSection]);
 
-  const navLinks = ['Home', 'Inventory', 'About', 'Services', 'Contact'];
+  const navLinks = ['Home', 'Inventory', 'Contact'];
 
   const updatePill = useCallback(() => {
     const el = linkRefs.current[activeSection];
