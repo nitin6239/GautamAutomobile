@@ -63,7 +63,7 @@ const Services = () => {
               viewport={{ once: true }}
               transition={{ duration: 0.5, delay: index * 0.08 }}
             >
-              <LiquidGlassCard className="p-6 sm:p-8 flex flex-col items-start">
+              <LiquidGlassCard className="p-6 sm:p-8 flex flex-col items-start h-full">
               {/* iOS Frosted Icon */}
               <div className="ios-pill w-14 h-14 sm:w-16 sm:h-16 flex items-center justify-center mb-5 text-red-500 transition-all duration-400 !rounded-2xl">
                 <iconify-icon icon={item.icon} width="26"></iconify-icon>

@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, useCallback } from 'react';
+﻿import React, { useState, useEffect, useRef, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { FaWhatsapp } from 'react-icons/fa';
 
@@ -127,9 +127,9 @@ const Navbar = ({ toggleTheme, theme }) => {
             className="nav-pill"
             animate={{ x: pillPos.x, width: pillPos.w, scale: pillScale }}
             transition={{
-              x: { type: "spring", stiffness: 280, damping: 24, mass: 0.6 },
-              width: { type: "spring", stiffness: 280, damping: 24, mass: 0.6 },
-              scale: { type: "spring", stiffness: 400, damping: 10 },
+              x: { type: "spring", stiffness: 180, damping: 28, mass: 0.8 },
+              width: { type: "spring", stiffness: 180, damping: 28, mass: 0.8 },
+              scale: { type: "spring", stiffness: 300, damping: 15, mass: 0.6 },
             }}
           />
         </div>
@@ -142,6 +142,8 @@ const Navbar = ({ toggleTheme, theme }) => {
           >
             <AnimatePresence mode="wait" initial={false}>
               <motion.div
+
+
                 key={theme}
                 initial={{ y: -20, opacity: 0, rotate: -90 }}
                 animate={{ y: 0, opacity: 1, rotate: 0 }}
@@ -211,9 +213,9 @@ const Navbar = ({ toggleTheme, theme }) => {
             className="nav-bottom-pill"
             animate={{ x: bottomPillPos.x, width: bottomPillPos.w, scale: bottomPillScale }}
             transition={{
-              x: { type: "spring", stiffness: 280, damping: 24, mass: 0.6 },
-              width: { type: "spring", stiffness: 280, damping: 24, mass: 0.6 },
-              scale: { type: "spring", stiffness: 400, damping: 10 },
+              x: { type: "spring", stiffness: 180, damping: 28, mass: 0.8 },
+              width: { type: "spring", stiffness: 180, damping: 28, mass: 0.8 },
+              scale: { type: "spring", stiffness: 300, damping: 15, mass: 0.6 },
             }}
           />
         </div>
