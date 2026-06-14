@@ -1060,17 +1060,21 @@ html.light .nav-bottom {
   gap: 4px;
   padding: 5px;
   border-radius: 100px;
-  background: rgba(28,28,30,0.65);
-  backdrop-filter: blur(60px) saturate(200%);
-  -webkit-backdrop-filter: blur(60px) saturate(200%);
-  border: 0.5px solid rgba(255,255,255,0.12);
+  background: rgba(255,255,255,0.04);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 0.5px solid rgba(255,255,255,0.06);
   box-shadow:
     inset 0 0 0 0.5px rgba(255,255,255,0.06),
-    inset 0.5px 1px 0px -0.5px rgba(255,255,255,0.15),
-    inset -0.5px -0.5px 0px -0.5px rgba(255,255,255,0.10),
-    inset 0px -6px 12px -4px rgba(0,0,0,0.25),
-    0 8px 32px rgba(0,0,0,0.4),
-    0 2px 8px rgba(0,0,0,0.25);
+    inset 0.5px 1px 0px -0.5px rgba(255,255,255,0.50),
+    inset -0.5px -0.5px 0px -0.5px rgba(255,255,255,0.40),
+    inset 0px -4px 1px -3px rgba(255,255,255,0.35),
+    inset -0.3px -1px 3px 0px rgba(0,0,0,0.08),
+    inset -1px 0px 0px -0.5px rgba(0,0,0,0.12),
+    inset 0px 2px 3px -1px rgba(0,0,0,0.12),
+    inset 1px -3px 1px -2px rgba(0,0,0,0.06),
+    0 1px 3px rgba(0,0,0,0.10),
+    0 4px 12px rgba(0,0,0,0.08);
   width: 100%;
   max-width: 420px;
   pointer-events: auto;
@@ -1081,17 +1085,19 @@ html.light .nav-bottom {
 .nav-bottom-inner::-webkit-scrollbar { display: none; }
 
 html.light .nav-bottom-inner {
-  background: rgba(245,244,242,0.70);
-  backdrop-filter: blur(60px) saturate(200%);
-  -webkit-backdrop-filter: blur(60px) saturate(200%);
-  border: 0.5px solid rgba(0,0,0,0.08);
+  background: rgba(0,0,0,0.03);
+  border: 0.5px solid rgba(0,0,0,0.04);
   box-shadow:
-    inset 0 0 0 0.5px rgba(255,255,255,0.5),
-    inset 0.5px 1px 0px -0.5px rgba(255,255,255,0.7),
-    inset -0.5px -0.5px 0px -0.5px rgba(255,255,255,0.4),
-    inset 0px -6px 12px -4px rgba(0,0,0,0.06),
-    0 8px 32px rgba(0,0,0,0.08),
-    0 2px 8px rgba(0,0,0,0.04);
+    inset 0 0 0 0.5px rgba(255,255,255,0.50),
+    inset 0.5px 1px 0px -0.5px rgba(255,255,255,0.85),
+    inset -0.5px -0.5px 0px -0.5px rgba(255,255,255,0.70),
+    inset 0px -4px 1px -3px rgba(255,255,255,0.55),
+    inset -0.3px -1px 3px 0px rgba(0,0,0,0.04),
+    inset -1px 0px 0px -0.5px rgba(0,0,0,0.05),
+    inset 0px 2px 3px -1px rgba(0,0,0,0.05),
+    inset 1px -3px 1px -2px rgba(0,0,0,0.02),
+    0 1px 2px rgba(0,0,0,0.04);
+}
 }
 
 .nav-bottom-link {
